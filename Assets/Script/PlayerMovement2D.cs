@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
-using UnityEngine.InputSystem;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 {
@@ -18,6 +19,7 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
     {
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
+        attackAction = InputSystem.actions.FindAction("Attack");
 
         rb = GetComponent<Rigidbody2D>();
 
