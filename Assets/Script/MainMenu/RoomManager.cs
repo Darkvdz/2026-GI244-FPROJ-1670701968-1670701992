@@ -93,9 +93,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public void JoinRoom()
     {
+        roomName = roomInput.text;
+
         joinButton.interactable = false;
         SetPlayerName();
-        PhotonNetwork.JoinRoom(roomInput.text);
+        PhotonNetwork.JoinRoom(roomName);
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
