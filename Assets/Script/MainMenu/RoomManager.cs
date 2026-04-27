@@ -81,7 +81,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public void JoinRoom()
     {
         joinButton.interactable = false;
-
+        SetPlayerName();
         PhotonNetwork.JoinRoom(roomInput.text);
     }
 
@@ -94,7 +94,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        SetPlayerName();
+        //SetPlayerName();
 
         MainMenu.SetActive(false);
         RoomMenu.SetActive(true);
@@ -111,6 +111,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
             .OrderByDescending(p => p.IsMasterClient)
             .ThenBy(p => p.ActorNumber)
             .ToList();
+        print(sortedPlayers);
 
         for (int i = 0; i < slotsName.Length; i++)
         {
