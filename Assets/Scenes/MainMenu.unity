@@ -2600,9 +2600,9 @@ MonoBehaviour:
   createButton: {fileID: 344616938}
   startButton: {fileID: 1449400986}
   leaveButton: {fileID: 1420225885}
-  RoomName: {fileID: 0}
-  Requirement: {fileID: 0}
-  numberOfPlayer: {fileID: 0}
+  RoomName: {fileID: 779714788}
+  Requirement: {fileID: 1528074524}
+  numberOfPlayer: {fileID: 760406076}
   MainMenu: {fileID: 1779540775}
   RoomMenu: {fileID: 1305902147}
 --- !u!1 &1551441565

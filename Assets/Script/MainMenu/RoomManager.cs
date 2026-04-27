@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class RoomManager : MonoBehaviourPunCallbacks
 {
     private string roomName;
+    private int playerNumber;
 
     //UI
 
@@ -29,15 +30,19 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        PhotonNetwork.AutomaticallySyncScene = true;
+
         joinButton.onClick.AddListener(JoinRoom);
         createButton.onClick.AddListener(CreateRoom);
         startButton.onClick.AddListener(() =>
         {
+            if (playerNumber < 2) return;
+            
             if (!PhotonNetwork.IsMasterClient) return;
 
             Debug.Log("Game Starting...");
 
-            //PhotonNetwork.LoadLevel("GameScene");
+            PhotonNetwork.LoadLevel("GameScene");
         });
         leaveButton.onClick.AddListener(LeaveRoom);
     }
@@ -170,7 +175,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
         
         Requirement.gameObject.SetActive(!(sortedPlayers.Count >= 2));
-        
+
+        playerNumber = sortedPlayers.Count;
 
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
