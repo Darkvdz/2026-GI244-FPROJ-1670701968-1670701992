@@ -2,7 +2,7 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
 
-public class PlayerMovement2D : MonoBehaviourPun
+public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 {
     public float speed = 5f;
     public float jumpForce = 2f;
@@ -10,6 +10,7 @@ public class PlayerMovement2D : MonoBehaviourPun
 
     public InputAction moveAction;
     public InputAction jumpAction;
+    public InputAction attackAction;
 
     private Rigidbody2D rb;
 
@@ -23,17 +24,21 @@ public class PlayerMovement2D : MonoBehaviourPun
     }
     void Update()
     {
-        
-        // เช็คว่าตัวละครนี้เป็นของเรารึป่าว
+
         if (!photonView.IsMine)
         {
             return;
         }
 
 
-        if (jumpAction.WasPressedThisFrame()) 
+        if (jumpAction.WasPressedThisFrame())
         {
             rb.AddForce(jumpForce * Vector2.up, ForceMode2D.Impulse);
+        }
+
+        if (attackAction.WasPressedThisFrame())
+        {
+            photonView.RPC("TakeDamage", RpcTarget.All, 10);
         }
 
         var holizontalInput = moveAction.ReadValue<Vector2>().x;
@@ -41,12 +46,33 @@ public class PlayerMovement2D : MonoBehaviourPun
 
     }
 
+
     [PunRPC]
     void TakeDamage(int damage)
     {
-        if (!photonView.IsMine) return; // 🔥 กันคนอื่นแก้
+        Debug.Log("RPC called on: " + PhotonNetwork.NickName);
+        if (!photonView.IsMine) return; 
 
         hp -= damage;
+
+        Debug.Log("Player: " + PhotonNetwork.NickName + " HP: " + hp);
     }
 
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            // Owner send
+
+            Debug.Log("SEND HP from " + PhotonNetwork.NickName + ": " + hp);
+            stream.SendNext(hp);
+        }
+        else
+        {
+            // oter recive
+
+            hp = (int)stream.ReceiveNext();
+            Debug.Log("RECEIVE HP on " + PhotonNetwork.NickName + ": " + hp);
+        }
+    }
 }
