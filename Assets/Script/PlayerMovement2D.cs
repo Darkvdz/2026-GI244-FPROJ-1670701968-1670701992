@@ -52,12 +52,16 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void TakeDamage(int damage)
     {
-        Debug.Log("RPC called on: " + PhotonNetwork.NickName);
+        Debug.Log(
+            "Local: " + PhotonNetwork.NickName +
+            " | Owner: " + photonView.Owner.NickName +
+            " | HP: " + hp
+        );
         if (!photonView.IsMine) return; 
 
         hp -= damage;
 
-        Debug.Log("Player: " + PhotonNetwork.NickName + " HP: " + hp);
+        
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -66,7 +70,7 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         {
             // Owner send
 
-            Debug.Log("SEND HP from " + PhotonNetwork.NickName + ": " + hp);
+            //Debug.Log("SEND HP from " + PhotonNetwork.NickName + ": " + hp);
             stream.SendNext(hp);
         }
         else
@@ -74,7 +78,11 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
             // oter recive
 
             hp = (float)stream.ReceiveNext();
-            Debug.Log("RECEIVE HP on " + PhotonNetwork.NickName + ": " + hp);
+            Debug.Log(
+                "Local: " + PhotonNetwork.NickName +
+                " | Owner: " + photonView.Owner.NickName +
+                " | HP: " + hp
+            );
         }
     }
 }
