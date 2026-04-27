@@ -13,7 +13,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected Joining Room...");
-        PhotonNetwork.JoinOrCreateRoom("GameRoom", new RoomOptions { MaxPlayers = 4 }, null);
+        PhotonNetwork.JoinOrCreateRoom("8", new RoomOptions { MaxPlayers = 4 }, null);
     }
 
     public override void OnJoinedRoom()
@@ -21,4 +21,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Joined Room Loading Player");
         PhotonNetwork.Instantiate("Player/Player2D", Vector3.zero, Quaternion.identity);
     }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        base.OnPlayerEnteredRoom(newPlayer);
+    }
+
+
 }

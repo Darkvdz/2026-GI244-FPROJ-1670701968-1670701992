@@ -212,11 +212,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement2D
   speed: 5
+  jumpForce: 2
   moveAction:
     m_Name: Move
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: 428ee82b-d509-4cff-8393-63ab37faad3f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  jumpAction:
+    m_Name: Jump
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: cfa068e1-221c-4ab3-b23d-0333c094b64f
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
