@@ -177,9 +177,9 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
-  - {fileID: 2381288118238941194}
+  - {fileID: 6752940472041683661}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -213,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement2D
   speed: 5
   jumpForce: 2
+  hp: 100
   moveAction:
     m_Name: Move
     m_Type: 0
@@ -227,6 +228,15 @@ MonoBehaviour:
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: cfa068e1-221c-4ab3-b23d-0333c094b64f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  attackAction:
+    m_Name: Attack
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0453dc00-0f7f-47e0-8080-952410b06b35
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
