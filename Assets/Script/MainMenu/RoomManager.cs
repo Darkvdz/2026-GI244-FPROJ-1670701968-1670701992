@@ -8,15 +8,21 @@ using UnityEngine.UI;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
-    public TextMeshProUGUI[] slotsName;
+    private string roomName;
 
     //UI
+
+    public TextMeshProUGUI[] slotsName;
     public TMP_InputField nameInput;
     public TMP_InputField roomInput;
     public Button joinButton;
     public Button createButton;
     public Button startButton;
     public Button leaveButton;
+
+    public TextMeshProUGUI RoomName;
+    public TextMeshProUGUI Requirement;
+    public TextMeshProUGUI numberOfPlayer;
 
     public GameObject MainMenu;
     public GameObject RoomMenu;
@@ -60,7 +66,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        string roomName = roomInput.text;
+        roomName = roomInput.text;
 
         if (string.IsNullOrEmpty(roomName))
             roomName = "Room" + Random.Range(0, 1000);
@@ -156,6 +162,14 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 slotsName[i].gameObject.SetActive(i < sortedPlayers.Count); ;
             }
         }
+
+        RoomName.text = "Room - #" + roomName ;
+        numberOfPlayer.text = sortedPlayers.Count + "/ 4 " + "player" ;
+
+        
+        Requirement.gameObject.SetActive(!(sortedPlayers.Count >= 2));
+        
+
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
