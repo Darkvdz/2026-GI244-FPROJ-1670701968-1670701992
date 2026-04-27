@@ -16,14 +16,15 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public Button joinButton;
     public Button createButton;
     public Button startButton;
+    public Button leaveButton;
 
     public GameObject MainMenu;
     public GameObject RoomMenu;
 
     private void Awake()
     {
-        joinButton.onClick.AddListener(() => JoinRoom());
-        createButton.onClick.AddListener(() => CreateRoom());
+        joinButton.onClick.AddListener(JoinRoom);
+        createButton.onClick.AddListener(CreateRoom);
         startButton.onClick.AddListener(() =>
         {
             if (!PhotonNetwork.IsMasterClient) return;
@@ -32,6 +33,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
             //PhotonNetwork.LoadLevel("GameScene");
         });
+        leaveButton.onClick.AddListener(LeaveRoom);
     }
 
     void Start()
@@ -76,6 +78,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
         RoomMenu.SetActive(true);
     }
 
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        Debug.Log("this room id already have the room");
+    }
+
 
 
     public void JoinRoom()
@@ -101,6 +108,21 @@ public class RoomManager : MonoBehaviourPunCallbacks
         startButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
 
         UpdatePlayerList();
+    }
+
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
+        Debug.Log("Left Room");
+
+        MainMenu.SetActive(true);
+        RoomMenu.SetActive(false);
+
+        joinButton.interactable = true;
     }
 
 
@@ -135,9 +157,22 @@ public class RoomManager : MonoBehaviourPunCallbacks
             }
         }
     }
-    public override void OnPlayerEnteredRoom(Player newPlayer) => UpdatePlayerList();
-    public override void OnPlayerLeftRoom(Player otherPlayer) => UpdatePlayerList();
-    public override void OnMasterClientSwitched(Player newMasterClient) => UpdatePlayerList();
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        UpdatePlayerList();
+        startButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
+    }
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        UpdatePlayerList();
+        startButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
+    }
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        UpdatePlayerList();
+
+        startButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
+    }
 
 }
 

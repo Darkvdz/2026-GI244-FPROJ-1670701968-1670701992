@@ -2599,6 +2599,7 @@ MonoBehaviour:
   joinButton: {fileID: 148688368}
   createButton: {fileID: 344616938}
   startButton: {fileID: 1449400986}
+  leaveButton: {fileID: 1420225885}
   MainMenu: {fileID: 1779540775}
   RoomMenu: {fileID: 1305902147}
 --- !u!1 &1551441565
