@@ -73,7 +73,7 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         {
             // oter recive
 
-            hp = (int)stream.ReceiveNext();
+            hp = (float)stream.ReceiveNext();
             Debug.Log("RECEIVE HP on " + PhotonNetwork.NickName + ": " + hp);
         }
     }
