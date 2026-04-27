@@ -52,16 +52,17 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void TakeDamage(int damage)
     {
+        if (!photonView.IsMine) return; 
+
+        hp -= damage;
+
         Debug.Log(
             "Local: " + PhotonNetwork.NickName +
             " | Owner: " + photonView.Owner.NickName +
             " | HP: " + hp
         );
-        if (!photonView.IsMine) return; 
 
-        hp -= damage;
 
-        
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
