@@ -7,7 +7,7 @@ public class Item : MonoBehaviourPun
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!PhotonNetwork.IsMasterClient) return;
+        
 
         if (collision.gameObject.CompareTag("Player")) 
         {
@@ -24,6 +24,9 @@ public class Item : MonoBehaviourPun
             {
                 Debug.Log("error Item not found Player script");
             }
+
+
+            if (!PhotonNetwork.IsMasterClient) return;
 
             PhotonNetwork.Destroy(gameObject);
         }
