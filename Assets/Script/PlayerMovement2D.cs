@@ -15,6 +15,10 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
     public bool hasItem = false;
 
+    public GameObject weaponPivot;  
+    public GameObject weaponSprite; 
+    private float weaponAngle;      
+
     private Rigidbody2D rb;
 
     private void Awake()
@@ -28,9 +32,17 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
     }
     void Update()
     {
+        if (weaponSprite != null)
+        {
+            weaponSprite.SetActive(hasItem);
+        }
 
         if (!photonView.IsMine)
         {
+            if (hasItem && weaponPivot != null)
+            {
+                weaponPivot.transform.rotation = Quaternion.Euler(0, 0, weaponAngle);
+            }
             return;
         }
 
@@ -47,6 +59,15 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
         var holizontalInput = moveAction.ReadValue<Vector2>().x;
         transform.Translate(Vector2.right * speed * holizontalInput * Time.deltaTime);
+
+        if (hasItem && weaponPivot != null)
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            mousePos.z = 0f;
+            Vector3 aimDirection = (mousePos - transform.position).normalized;
+            weaponAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+            weaponPivot.transform.rotation = Quaternion.Euler(0, 0, weaponAngle);
+        }
 
     }
 
@@ -76,6 +97,7 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
             //Debug.Log("SEND HP from " + PhotonNetwork.NickName + ": " + hp);
             stream.SendNext(hp);
             stream.SendNext(hasItem);
+            stream.SendNext(weaponAngle);
         }
         else
         {
@@ -83,6 +105,7 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
             hp = (float)stream.ReceiveNext();
             hasItem = (bool)stream.ReceiveNext();
+            weaponAngle = (float)stream.ReceiveNext();
 
             Debug.Log(
                 "Local: " + PhotonNetwork.NickName +
