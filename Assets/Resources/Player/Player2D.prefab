@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement2D
   speed: 5
-  jumpForce: 2
+  jumpForce: 5
   hp: 100
   moveAction:
     m_Name: Move

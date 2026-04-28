@@ -13,6 +13,8 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
     public InputAction jumpAction;
     public InputAction attackAction;
 
+    public bool hasItem = false;
+
     private Rigidbody2D rb;
 
     private void Awake()
