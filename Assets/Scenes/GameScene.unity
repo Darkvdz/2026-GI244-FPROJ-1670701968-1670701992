@@ -286,7 +286,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64e1136a39e237740a7f541ee1141cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemManager
-  spawnPoints: []
+  spawnPoints:
+  - {fileID: 655185614}
+  - {fileID: 1375526190}
   minTime: 3
   maxTime: 8
   waitTimeSpawn: 5
