@@ -5,7 +5,7 @@ public class Item : MonoBehaviourPun
 {
     public Transform returnSpawn ;
 
-    /*private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player")) 
         {
@@ -25,9 +25,9 @@ public class Item : MonoBehaviourPun
 
             PhotonNetwork.Destroy(gameObject);
         }
-    }*/
+    }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    /*private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -47,6 +47,6 @@ public class Item : MonoBehaviourPun
 
             PhotonNetwork.Destroy(gameObject);
         }
-    }
+    }*/
 
 }
