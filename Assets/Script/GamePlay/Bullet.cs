@@ -24,18 +24,25 @@ public class Bullet : MonoBehaviourPun
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+       
         if (!photonView.IsMine) return;
         if (isDestroyed) return;
 
         if (collision.CompareTag("Player"))
         {
             PhotonView targetPhotonView = collision.GetComponent<PhotonView>();
-         
+
             if (targetPhotonView != null && !targetPhotonView.IsMine)
             {
+               
                 targetPhotonView.RPC("TakeDamage", RpcTarget.All, damage);
                 DestroyBullet();
             }
+        }
+       
+        else if (collision.CompareTag("Wall"))
+        {
+            DestroyBullet();
         }
     }
 
@@ -43,6 +50,7 @@ public class Bullet : MonoBehaviourPun
     {
         if (isDestroyed) return;
         isDestroyed = true;
+
         PhotonNetwork.Destroy(gameObject);
     }
 }

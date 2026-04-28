@@ -51,6 +51,12 @@ public class Item : MonoBehaviourPun
         {
             ItemManager.instance.ReturnSpawnPointItem(returnSpawn);
         }
+
+        foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>()) sr.enabled = false;
+        foreach (Collider2D col in GetComponentsInChildren<Collider2D>()) col.enabled = false;
+
+        Invoke("NetworkDestroy", 0.1f);
+
         PhotonNetwork.Destroy(gameObject);
     }
 

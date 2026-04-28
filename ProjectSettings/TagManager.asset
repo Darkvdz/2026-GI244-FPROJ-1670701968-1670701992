@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Item
   - Spawn
+  - Wall
   layers:
   - Default
   - TransparentFX
