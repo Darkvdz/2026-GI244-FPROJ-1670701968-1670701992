@@ -81,6 +81,7 @@ public class ItemManager : MonoBehaviourPun
 
     public void ReturnSpawnPointItem(Transform positionSpawn) 
     {
+        currentItem--;
         spawnPoints.Add(positionSpawn);
     }
 
