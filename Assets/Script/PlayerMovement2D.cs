@@ -19,6 +19,8 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
     public GameObject weaponSprite; 
     private float weaponAngle;      
 
+    private bool isDead = false;
+
     private Rigidbody2D rb;
 
     private void Awake()
@@ -85,7 +87,29 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
             " | HP: " + hp
         );
 
+        if (hp <= 0)
+        {
+            Die(); 
+        }
 
+    }
+
+    void Die()
+    {
+        if (isDead) return;
+        isDead = true;
+
+        Debug.Log("Dead: " + PhotonNetwork.NickName);
+
+        //GameManager.instance.PlayerDied(); 
+
+        photonView.RPC("DisablePlayer", RpcTarget.All);
+    }
+
+    [PunRPC]
+    void DisablePlayer()
+    {
+        gameObject.SetActive(false);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

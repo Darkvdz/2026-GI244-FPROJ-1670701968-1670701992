@@ -890,7 +890,7 @@ GameObject:
   - component: {fileID: 662082669}
   m_Layer: 0
   m_Name: Spawn_1
-  m_TagString: Untagged
+  m_TagString: Spawn
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -965,7 +965,7 @@ GameObject:
   - component: {fileID: 878443713}
   m_Layer: 0
   m_Name: Spawn_2
-  m_TagString: Untagged
+  m_TagString: Spawn
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1063,7 +1063,7 @@ GameObject:
   - component: {fileID: 1533981298}
   m_Layer: 0
   m_Name: Spawn_3
-  m_TagString: Untagged
+  m_TagString: Spawn
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1129,7 +1129,7 @@ GameObject:
   - component: {fileID: 1758676470}
   m_Layer: 0
   m_Name: Spawn_4
-  m_TagString: Untagged
+  m_TagString: Spawn
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1178,11 +1178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb3ce1b00ff48e40a10f295e3d28ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  spawnPoints:
-  - {fileID: 662082669}
-  - {fileID: 878443713}
-  - {fileID: 1533981298}
-  - {fileID: 1758676470}
+  spawnPoints: []
 --- !u!4 &1873728063
 Transform:
   m_ObjectHideFlags: 0

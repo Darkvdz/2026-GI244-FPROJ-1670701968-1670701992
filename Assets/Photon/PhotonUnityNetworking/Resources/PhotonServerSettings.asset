@@ -41,6 +41,10 @@ MonoBehaviour:
   - RespawnSpaceship
   - TakeDamage
   - RequestDestroyItem
+  - EndGame
+  - StartNextRound
+  - DisablePlayer
+  - CheckLastPlayerRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
