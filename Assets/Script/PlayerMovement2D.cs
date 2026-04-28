@@ -17,7 +17,8 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
     public GameObject weaponPivot;  
     public GameObject weaponSprite; 
-    private float weaponAngle;      
+    private float weaponAngle;
+    public Transform firePoint;
 
     private bool isDead = false;
 
@@ -54,9 +55,12 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
             rb.AddForce(jumpForce * Vector2.up, ForceMode2D.Impulse);
         }
 
-        if (attackAction.WasPressedThisFrame())
+        if (attackAction.WasPressedThisFrame() && hasItem)
         {
-            photonView.RPC("TakeDamage", RpcTarget.All, 10);
+            if (firePoint != null)
+            {               
+                PhotonNetwork.Instantiate("Bullet", firePoint.position, weaponPivot.transform.rotation);
+            }
         }
 
         var holizontalInput = moveAction.ReadValue<Vector2>().x;

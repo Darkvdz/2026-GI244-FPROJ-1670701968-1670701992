@@ -5,9 +5,12 @@ public class Item : MonoBehaviourPun
 {
     public Transform returnSpawn ;
 
+    private bool isCollectedLocal = false;
+    private bool isDestroyedOnServer = false;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (isCollectedLocal) return;
 
         if (collision.gameObject.CompareTag("Player")) 
         {
@@ -17,7 +20,10 @@ public class Item : MonoBehaviourPun
 
             if (PL2DScript != null && PL2DScript.photonView.IsMine)
             {
+                isCollectedLocal = true;
+
                 Debug.Log("Collected by " + photonView.Owner.NickName);
+
                 PL2DScript.hasItem = true;
 
                 photonView.RPC("RequestDestroyItem", RpcTarget.MasterClient);
@@ -38,6 +44,9 @@ public class Item : MonoBehaviourPun
     [PunRPC]
     void RequestDestroyItem()
     {
+        if (isDestroyedOnServer) return;
+        isDestroyedOnServer = true;
+
         if (ItemManager.instance != null)
         {
             ItemManager.instance.ReturnSpawnPointItem(returnSpawn);
