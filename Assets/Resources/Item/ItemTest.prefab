@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6771224495837057728}
   - component: {fileID: 8670875234489410416}
   - component: {fileID: 9213047084111073323}
+  - component: {fileID: 4307739852110036657}
   m_Layer: 0
   m_Name: ItemTest
   m_TagString: Untagged
@@ -115,3 +116,16 @@ CapsuleCollider:
   m_Height: 3.179128
   m_Direction: 1
   m_Center: {x: -0.054519735, y: 0.011943672, z: 0}
+--- !u!114 &4307739852110036657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6652538739722883143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9e5748570ed57449d16f6de1647e27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  returnSpawn: {fileID: 0}
