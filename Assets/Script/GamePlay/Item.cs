@@ -1,6 +1,7 @@
+using Photon.Pun;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class Item : MonoBehaviourPun
 {
     public Transform returnSpawn ;
 
@@ -13,14 +14,17 @@ public class Item : MonoBehaviour
             PlayerMovement2D PL2DScript = collision.gameObject.GetComponent<PlayerMovement2D>();
             if (PL2DScript)
             {
+                Debug.Log("Collected by " + photonView.Owner.NickName);
                 PL2DScript.hasItem = true;
+
             }
             else 
             {
                 Debug.Log("error Item not found Player script");
             }
 
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
     }
+
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemManager : MonoBehaviourPunCallbacks
+public class ItemManager : MonoBehaviourPun
 {
     public List<Transform> spawnPoints;
     public float minTime = 3f;
@@ -38,14 +38,17 @@ public class ItemManager : MonoBehaviourPunCallbacks
     {
         while (true)
         {
-            if (currentItem < maxItemSpawn) 
+            if (currentItem < maxItemSpawn)
             {
-                float waitTime = Random.Range(minTime, maxTime);
-                yield return new WaitForSeconds(waitTime);
+                yield return new WaitForSeconds(waitTimeSpawn);
+                waitTimeSpawn = Random.Range(minTime, maxTime);
 
                 SpawnItem();
             }
-            
+            else 
+            {
+                Debug.Log("spawn Full");
+            }
         }
     }
 

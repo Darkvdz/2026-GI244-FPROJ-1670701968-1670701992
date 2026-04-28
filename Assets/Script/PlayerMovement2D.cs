@@ -75,16 +75,20 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
             //Debug.Log("SEND HP from " + PhotonNetwork.NickName + ": " + hp);
             stream.SendNext(hp);
+            stream.SendNext(hasItem);
         }
         else
         {
             // oter recive
 
             hp = (float)stream.ReceiveNext();
+            hasItem = (bool)stream.ReceiveNext();
+
             Debug.Log(
                 "Local: " + PhotonNetwork.NickName +
                 " | Owner: " + photonView.Owner.NickName +
-                " | HP: " + hp
+                " | HP: " + hp +
+                " | ItemHold: " + hasItem
             );
         }
     }
