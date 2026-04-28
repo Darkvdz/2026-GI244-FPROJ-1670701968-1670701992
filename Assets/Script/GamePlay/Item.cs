@@ -7,6 +7,8 @@ public class Item : MonoBehaviourPun
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!PhotonNetwork.IsMasterClient) return;
+
         if (collision.gameObject.CompareTag("Player")) 
         {
             ItemManager.instance.ReturnSpawnPointItem(returnSpawn);
