@@ -1,161 +1,117 @@
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
-using ExitGames.Client.Photon;
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
-    public Transform[] spawnPoints;
 
     public static GameManager instance;
+
+    [SerializeField] private int[] playerScore = { 0, 0, 0, 0 };
+    public int[] PlayerScore
+    {
+        get { return playerScore; }
+        set { playerScore = value; }
+    }
+
+    private bool[] playerDeath = { false, false, false, false};
+    public bool[] PlayerDeath
+    {
+        get { return playerDeath; }
+        set { playerDeath = value; }
+    }
+
+    private int currentPlayer = 0;
+    public int CurrentPlayer
+    {
+        get { return currentPlayer; }
+        set { currentPlayer = value; }
+    }
+
+    private int roomPlayer = 0;
+    public int RoomPlayer
+    {
+        get { return roomPlayer; }
+        set { roomPlayer = value; }
+    }
+
+    private int death = 0;
+    public int Death
+    {
+        get { return death; }
+        set { death = value; }
+    }
+
+    private string[] maps = { "GameScene" };
+
 
     private void Awake()
     {
         if (instance != null) 
         {
+                
             Destroy(gameObject);
+            print("1s");
             return;
         }
 
         instance = this;
         DontDestroyOnLoad(gameObject);
-    }
 
-    private void OnEnable()
-    {
         SceneManager.sceneLoaded += OnSceneLoaded;
+
     }
 
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        spawnPoints = GameObject.FindGameObjectsWithTag("Spawn")
-            .Select(obj => obj.transform)
-            .ToArray();
-
-        SpawnPlayer();
-
+        print("1f");
         if (PhotonNetwork.IsMasterClient)
         {
             ResetDeadStatus();
         }
+
+        print("1a");
+        PlayerManager.instance.SpawnPlayer();
+
     }
 
-    void SpawnPlayer()
+
+    public void CheckLastPlayer(int idPlayer)
     {
-        if (PhotonNetwork.LocalPlayer.TagObject != null) return;
+        death++;
+        playerDeath[idPlayer - 1] = true;
 
-        int index = (PhotonNetwork.LocalPlayer.ActorNumber - 1) % spawnPoints.Length;
 
-        Transform spawnPoint = spawnPoints[index];
-
-        GameObject player = PhotonNetwork.Instantiate(
-            "Player/Player2D",
-            spawnPoint.position,
-            spawnPoint.rotation
-        );
-
-        PhotonNetwork.LocalPlayer.TagObject = player;
-    }
-
-    public void PlayerDied()
-    {
-        print("die");
-        Hashtable props = new Hashtable();
-        props["dead"] = true;
-
-        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
-
-        photonView.RPC("CheckLastPlayerRPC", RpcTarget.MasterClient);
-    }
-
-    [PunRPC]
-    void CheckLastPlayerRPC()
-    {
-        CheckLastPlayer();
-    }
-
-    void CheckLastPlayer()
-    {
-        print("check");
-        var alivePlayers = PhotonNetwork.PlayerList
-            .Where(p => !IsDead(p))
-            .ToList();
-
-        print(alivePlayers);
-        if (alivePlayers.Count == 1)
+        if (death >= (currentPlayer - 1) )
         {
             print("win");
-            Player winner = alivePlayers[0];
 
-            Debug.Log("Winner: " + winner.NickName);
+            string Winner = PlayerManager.instance.GetPlayerName(idPlayer);
 
-            AddScore(winner);
+            Debug.Log("Winner: " + Winner);
 
-            CheckGameEnd(winner);
+            AddScore(idPlayer);
+
+            GameNetWorkManager.instance.CheckGameEnd(idPlayer);
         }
     }
 
-    bool IsDead(Player player)
+
+    void AddScore(int idPlayer)
     {
-        return player.CustomProperties.ContainsKey("dead") &&
-               (bool)player.CustomProperties["dead"];
+        playerScore[idPlayer - 1] += 1;
     }
 
-    void AddScore(Player player)
+
+    public void ResetDeadStatus()
     {
-        int current = player.CustomProperties.ContainsKey("score")
-            ? (int)player.CustomProperties["score"]
-            : 0;
-
-        Hashtable props = new Hashtable();
-        props["score"] = current + 1;
-
-        player.SetCustomProperties(props);
-    }
-
-    void CheckGameEnd(Player player)
-    {
-        int score = (int)player.CustomProperties["score"];
-
-        if (score >= 3)
-        {
-            photonView.RPC("EndGame", RpcTarget.All, player.NickName);
-        }
-        else
-        {
-            photonView.RPC("StartNextRound", RpcTarget.All);
-        }
-    }
-
-    [PunRPC]
-    void StartNextRound()
-    {
-        Debug.Log("Next Round");
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            ResetDeadStatus();
-        }
-
-        PhotonNetwork.LoadLevel(GetRandomScene());
-    }
-
-    void ResetDeadStatus()
-    {
-        foreach (var p in PhotonNetwork.PlayerList)
-        {
-            Hashtable props = new Hashtable();
-            props["dead"] = false;
-
-            p.SetCustomProperties(props);
-        }
+        death = 0;
+        Array.Fill(playerDeath, false);
     }
 
     [PunRPC]
@@ -163,22 +119,34 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Game Winner: " + winnerName);
 
-        // TODO: ไปหน้า result หรือ menu
+        // WIP
     }
         
-    string GetRandomScene()
+    public string GetRandomScene()
     {
-        string[] maps = { "GameScene"};
-        return maps[Random.Range(0, maps.Length)];
+        return maps[UnityEngine.Random.Range(0, maps.Length)];
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            CheckLastPlayer();
+            currentPlayer -= 1;
+
+            if ((playerDeath[otherPlayer.ActorNumber - 1])) 
+            {
+                death += 1;
+            }
+
         }
     }
+
+
+
+
+
+
+
 
 
 }

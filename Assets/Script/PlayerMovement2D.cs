@@ -98,6 +98,12 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
     }
 
+    private void Start()
+    {
+        print("self");
+        print(PhotonNetwork.LocalPlayer.ActorNumber);
+    }
+
     void Die()
     {
         if (isDead) return;
@@ -105,7 +111,7 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
         Debug.Log("Dead: " + PhotonNetwork.NickName);
 
-        //GameManager.instance.PlayerDied(); 
+        PlayerManager.instance.PlayerDied(); 
 
         photonView.RPC("DisablePlayer", RpcTarget.All);
     }
