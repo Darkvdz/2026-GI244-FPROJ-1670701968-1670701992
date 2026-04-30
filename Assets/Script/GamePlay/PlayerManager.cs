@@ -15,6 +15,23 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     {
         instance = this;
     }
+
+
+    private void Start()
+    {
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GameManager.instance.ResetDeadStatus();
+            print("reset");
+        }
+
+        
+        SpawnPlayer();
+        print("reset");
+    }
+
+
     public void SpawnPlayer()
     {
         if (PhotonNetwork.LocalPlayer.TagObject != null) return;

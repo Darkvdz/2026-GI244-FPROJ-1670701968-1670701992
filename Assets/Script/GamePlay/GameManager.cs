@@ -25,6 +25,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         set { playerDeath = value; }
     }
 
+    private bool[] playerActive = { false, false, false, false };
+    public bool[] PlayerActive
+    {
+        get { return playerActive; }
+        set { playerActive = value; }
+    }
+
     private int currentPlayer = 0;
     public int CurrentPlayer
     {
@@ -62,12 +69,23 @@ public class GameManager : MonoBehaviourPunCallbacks
         instance = this;
         DontDestroyOnLoad(gameObject);
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        roomPlayer = PhotonNetwork.PlayerList.Length;
+        for (int i = 0; i < roomPlayer; i++) 
+        {
+            playerActive[1] = true;
+        }
+
+
+
+        print(roomPlayer);
+
+        //SceneManager.sceneLoaded += OnSceneLoaded;
 
     }
 
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+
+    /*void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         print("1f");
         if (PhotonNetwork.IsMasterClient)
@@ -78,7 +96,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         print("1a");
         PlayerManager.instance.SpawnPlayer();
 
-    }
+    }*/
 
 
     public void CheckLastPlayer(int idPlayer)
@@ -91,16 +109,29 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             print("win");
 
-            string Winner = PlayerManager.instance.GetPlayerName(idPlayer);
+            int winnerIndex = GetWinnerIdex();
+
+            string Winner = PlayerManager.instance.GetPlayerName(winnerIndex);
 
             Debug.Log("Winner: " + Winner);
 
-            AddScore(idPlayer);
+            AddScore(winnerIndex);
 
-            GameNetWorkManager.instance.CheckGameEnd(idPlayer);
+            GameNetWorkManager.instance.CheckGameEnd(winnerIndex);
         }
     }
 
+    public int GetWinnerIdex() 
+    {
+        for (int i = 0; i < roomPlayer; i++) 
+        {
+            if (!playerDeath[i] && playerActive[i]) 
+            {
+                return i + 1;
+            }
+        }
+        return 5;
+    }
 
     void AddScore(int idPlayer)
     {
@@ -114,8 +145,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         Array.Fill(playerDeath, false);
     }
 
-    [PunRPC]
-    void EndGame(string winnerName)
+    public void EndGame(string winnerName)
     {
         Debug.Log("Game Winner: " + winnerName);
 
@@ -137,6 +167,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 death += 1;
             }
+            playerActive[otherPlayer.ActorNumber - 1] = false;
 
         }
     }

@@ -44,4 +44,11 @@ public class GameNetWorkManager : MonoBehaviourPunCallbacks
 
         PhotonNetwork.LoadLevel(GameManager.instance.GetRandomScene());
     }
+
+    [PunRPC]
+    void EndGame(string winnerName)
+    {
+        GameManager.instance.EndGame(winnerName);
+
+    }
 }
