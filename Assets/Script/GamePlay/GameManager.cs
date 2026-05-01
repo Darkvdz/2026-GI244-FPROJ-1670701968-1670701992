@@ -79,24 +79,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         print(roomPlayer);
 
-        //SceneManager.sceneLoaded += OnSceneLoaded;
 
     }
 
 
 
-    /*void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        print("1f");
-        if (PhotonNetwork.IsMasterClient)
-        {
-            ResetDeadStatus();
-        }
-
-        print("1a");
-        PlayerManager.instance.SpawnPlayer();
-
-    }*/
 
 
     public void CheckLastPlayer(int idPlayer)

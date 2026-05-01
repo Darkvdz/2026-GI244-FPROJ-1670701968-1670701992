@@ -20,18 +20,22 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-
+        print("start");
         if (PhotonNetwork.IsMasterClient)
         {
             GameManager.instance.ResetDeadStatus();
             print("reset");
         }
 
-        
+        PhotonNetwork.LocalPlayer.TagObject = null;
         SpawnPlayer();
-        print("reset");
+        print("reset_2");
     }
 
+    private void Update()
+    {
+        print("test_Up" + this.gameObject.GetInstanceID());
+    }
 
     public void SpawnPlayer()
     {
@@ -59,7 +63,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     public void PlayerDied()
     {
         print("die");
-
+        
         photonView.RPC("CheckLastPlayerRPC", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber);
     }
 
