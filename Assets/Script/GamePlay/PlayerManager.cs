@@ -14,6 +14,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     private void Awake()
     {
         instance = this;
+        print("reset_awake");
     }
 
 

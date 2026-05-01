@@ -18,14 +18,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         set { playerScore = value; }
     }
 
-    private bool[] playerDeath = { false, false, false, false};
+    [SerializeField] private bool[] playerDeath = { false, false, false, false};
     public bool[] PlayerDeath
     {
         get { return playerDeath; }
         set { playerDeath = value; }
     }
 
-    private bool[] playerActive = { false, false, false, false };
+    [SerializeField] private bool[] playerActive = { false, false, false, false };
     public bool[] PlayerActive
     {
         get { return playerActive; }
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         set { death = value; }
     }
 
-    private string[] maps = { "GameScene" };
+    private string[] maps = { "GameScene_2" };
 
 
     private void Awake()
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
                 
             Destroy(gameObject);
-            print("1s");
+            //print("1s");
             return;
         }
 
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         roomPlayer = PhotonNetwork.PlayerList.Length;
         for (int i = 0; i < roomPlayer; i++) 
         {
-            playerActive[1] = true;
+            playerActive[i] = true;
         }
 
 
@@ -127,6 +127,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (!playerDeath[i] && playerActive[i]) 
             {
+                print(i);
                 return i + 1;
             }
         }
