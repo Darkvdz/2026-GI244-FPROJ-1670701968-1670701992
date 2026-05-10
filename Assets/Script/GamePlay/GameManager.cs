@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         set { death = value; }
     }
 
-    private string[] maps = { "GameScene_2" };
+    private string[] maps = { "GameScene" , "GameScene_2" };
 
 
     private void Awake()
@@ -159,6 +159,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         }
     }
+
+
 
 
 
