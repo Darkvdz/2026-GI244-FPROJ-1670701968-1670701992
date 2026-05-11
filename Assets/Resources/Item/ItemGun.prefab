@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 327894661496361055}
   - component: {fileID: 5472250203668103902}
   m_Layer: 0
-  m_Name: ItemTest
+  m_Name: ItemGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
   returnSpawn: {fileID: 0}
+  weaponType: 0
 --- !u!114 &6029487790690773837
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 public class Item : MonoBehaviourPun
 {
     public Transform returnSpawn ;
+    public WeaponType weaponType;
 
     private bool isCollectedLocal = false;
     private bool isDestroyedOnServer = false;
@@ -12,33 +13,25 @@ public class Item : MonoBehaviourPun
     {
         if (isCollectedLocal) return;
 
-        if (collision.gameObject.CompareTag("Player")) 
+        if (collision.gameObject.CompareTag("Player"))
         {
-            ItemManager.instance.ReturnSpawnPointItem(returnSpawn);
-
             PlayerMovement2D PL2DScript = collision.gameObject.GetComponent<PlayerMovement2D>();
 
             if (PL2DScript != null)
             {
                 isCollectedLocal = true;
 
-                Debug.Log("Collected by " + photonView.Owner.NickName);
+                PL2DScript.PickupWeapon(weaponType);
 
-                PL2DScript.hasItem = true;
-
+                Debug.Log("Collected by " + collision.gameObject.name);
                 photonView.RPC("RequestDestroyItem", RpcTarget.MasterClient);
-
             }
-            else 
+            else
             {
-                Debug.Log("error Item not found Player script");
+                Debug.Log("error: Item not found PlayerMovement2D script");
             }
-
-
-            if (!PhotonNetwork.IsMasterClient) return;
-
-            PhotonNetwork.Destroy(gameObject);
         }
+
     }
 
     [PunRPC]
@@ -52,11 +45,16 @@ public class Item : MonoBehaviourPun
             ItemManager.instance.ReturnSpawnPointItem(returnSpawn);
         }
 
-        foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>()) sr.enabled = false;
-        foreach (Collider2D col in GetComponentsInChildren<Collider2D>()) col.enabled = false;
-
-        Invoke("NetworkDestroy", 0.1f);
-
+        //Hide Before Dts
+        foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
+        {
+            sr.enabled = false;
+        }
+        foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
+        {
+            col.enabled = false;
+        }
+            
         PhotonNetwork.Destroy(gameObject);
     }
 

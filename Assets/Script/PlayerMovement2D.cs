@@ -15,10 +15,15 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
     public bool hasItem = false;
 
-    public GameObject weaponPivot;  
-    public GameObject weaponSprite; 
+    //public GameObject weaponPivot;  
+    //public GameObject weaponSprite; 
+    //public Transform firePoint;
+
+    public Gun gun;      
+   
+    public Weapon currentWeapon;
     private float weaponAngle;
-    public Transform firePoint;
+ 
 
     private bool isDead = false;
 
@@ -31,52 +36,59 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         attackAction = InputSystem.actions.FindAction("Attack");
 
         rb = GetComponent<Rigidbody2D>();
-
     }
+
+    private void Start()
+    {
+        currentWeapon = null;
+        hasItem = false;
+        foreach (Weapon weapon in GetComponentsInChildren<Weapon>())
+        {
+            weapon.Deactivate();
+        }
+
+        print("self");
+        print(PhotonNetwork.LocalPlayer.ActorNumber);
+    }
+
     void Update()
     {
-        if (weaponSprite != null)
-        {
-            weaponSprite.SetActive(hasItem);
-        }
 
         if (!photonView.IsMine)
         {
-            if (hasItem && weaponPivot != null)
+            if (hasItem && currentWeapon != null)
             {
-                weaponPivot.transform.rotation = Quaternion.Euler(0, 0, weaponAngle);
+                currentWeapon.UpdateAim(weaponAngle);
             }
             return;
         }
 
+        var horizontalInput = moveAction.ReadValue<Vector2>().x;
+        transform.Translate(Vector2.right * speed * horizontalInput * Time.deltaTime);
 
         if (jumpAction.WasPressedThisFrame())
         {
             rb.AddForce(jumpForce * Vector2.up, ForceMode2D.Impulse);
         }
 
-        if (attackAction.WasPressedThisFrame() && hasItem)
+        if (attackAction.WasPressedThisFrame() && hasItem && currentWeapon != null)
         {
-            if (firePoint != null)
-            {               
-                PhotonNetwork.Instantiate("Bullet", firePoint.position, weaponPivot.transform.rotation);
-            }
+            currentWeapon.Use();
         }
 
-        var holizontalInput = moveAction.ReadValue<Vector2>().x;
-        transform.Translate(Vector2.right * speed * holizontalInput * Time.deltaTime);
-
-        if (hasItem && weaponPivot != null)
+        if (hasItem && currentWeapon != null)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             mousePos.z = 0f;
             Vector3 aimDirection = (mousePos - transform.position).normalized;
             weaponAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-            weaponPivot.transform.rotation = Quaternion.Euler(0, 0, weaponAngle);
+            currentWeapon.UpdateAim(weaponAngle);
         }
-
     }
-
+    public void PickupWeapon(WeaponType type)
+    {
+        photonView.RPC("RPC_PickupWeapon", RpcTarget.All, (int)type);
+    }
 
     [PunRPC]
     void TakeDamage(int damage)
@@ -98,10 +110,27 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
     }
 
-    private void Start()
+    [PunRPC]
+    void RPC_PickupWeapon(int typeInt)
     {
-        print("self");
-        print(PhotonNetwork.LocalPlayer.ActorNumber);
+        WeaponType type = (WeaponType)typeInt;
+
+        if (currentWeapon != null)
+            currentWeapon.Deactivate();
+
+        switch (type)
+        {
+            case WeaponType.Gun:
+                currentWeapon = gun;
+                break;
+        }
+
+        if (currentWeapon != null)
+        {
+            currentWeapon.Init(this);
+            currentWeapon.Activate();
+            hasItem = true;
+        }
     }
 
     void Die()

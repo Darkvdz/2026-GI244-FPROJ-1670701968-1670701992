@@ -58,7 +58,7 @@ public class ItemManager : MonoBehaviourPun
         int index = Random.Range(0, spawnPoints.Count);
 
         var go = PhotonNetwork.Instantiate(
-            "Item/ItemTest",
+            "Item/ItemGun",
             spawnPoints[index].position,
             Quaternion.identity
         );

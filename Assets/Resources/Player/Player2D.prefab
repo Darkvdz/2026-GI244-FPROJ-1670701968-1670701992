@@ -275,9 +275,8 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   hasItem: 0
-  weaponPivot: {fileID: 6830502870105055775}
-  weaponSprite: {fileID: 8689437462336912264}
-  firePoint: {fileID: 3687818040991363217}
+  gun: {fileID: 2754952510058691006}
+  currentWeapon: {fileID: 0}
 --- !u!1 &6830502870105055775
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,13 +319,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1536686258154852621}
   - component: {fileID: 6086266851801955849}
+  - component: {fileID: 2754952510058691006}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1536686258154852621
 Transform:
   m_ObjectHideFlags: 0
@@ -402,3 +402,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2754952510058691006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8689437462336912264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11eafe93a1df6c34f96423571d450cfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gun
+  damage: 10
+  firePoint: {fileID: 3687818040991363217}
+  weaponPivot: {fileID: 6830502870105055775}
+  weaponSprite: {fileID: 8689437462336912264}

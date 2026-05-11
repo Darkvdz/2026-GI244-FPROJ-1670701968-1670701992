@@ -46,6 +46,7 @@ MonoBehaviour:
   - DisablePlayer
   - CheckLastPlayerRPC
   - RPC_Hide
+  - RPC_PickupWeapon
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
