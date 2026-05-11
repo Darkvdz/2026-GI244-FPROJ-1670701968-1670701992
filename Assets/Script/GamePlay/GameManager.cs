@@ -137,7 +137,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Game Winner: " + winnerName);
 
-        // WIP
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("MainMenu"); 
+        }
+
+        Destroy(gameObject);
     }
         
     public string GetRandomScene()

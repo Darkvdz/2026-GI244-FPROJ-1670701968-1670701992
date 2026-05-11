@@ -50,8 +50,32 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        
-        PhotonNetwork.ConnectUsingSettings();
+        if (PhotonNetwork.IsConnected)
+        {
+            if (PhotonNetwork.InRoom)
+            {
+                Debug.Log("Back to room");
+
+                MainMenu.SetActive(false);
+                RoomMenu.SetActive(true);
+
+                startButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
+
+                roomName = PhotonNetwork.CurrentRoom.Name;
+
+                UpdatePlayerList();
+
+
+            }
+            else 
+            {
+                PhotonNetwork.ConnectUsingSettings();
+            }
+        }
+        else 
+        {
+            PhotonNetwork.ConnectUsingSettings();
+        }
     }
 
     public override void OnConnectedToMaster()
