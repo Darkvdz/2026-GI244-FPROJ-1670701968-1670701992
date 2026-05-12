@@ -1,35 +1,34 @@
 using UnityEngine;
 using Photon.Pun;
 
-public class Sword : Weapon
+public class Axe : Weapon
 {
     public float attackRange = 1.5f;
 
-    public float damageRateTime = 0.5f; 
+    public float damageRateTime = 1.5f;
     private float nextDamageTime = 0f;
+
+    public float swingSpeed = 3f; 
 
     public override void Use()
     {
-        Debug.Log("ATK by Sword!");   
+        Debug.Log("ATK by Axe!");
     }
 
     void Update()
     {
         if (owner != null && owner.photonView.IsMine)
         {
-           
             if (Time.time >= nextDamageTime)
             {
-                SwordAttack();
+                AxeAttack();
             }
         }
     }
 
-    void SwordAttack()
+    void AxeAttack()
     {
-
-        bool hitSomeone = false; 
-
+        bool hitSomeone = false;
         Collider2D[] hitObjects = Physics2D.OverlapCircleAll(firePoint.position, attackRange);
 
         foreach (Collider2D hit in hitObjects)
@@ -40,11 +39,9 @@ public class Sword : Weapon
 
                 if (targetPV != null && !targetPV.IsMine)
                 {
-                    
                     targetPV.RPC("TakeDamage", RpcTarget.All, damage);
-                    Debug.Log("Sword Auto-Hit : " + hit.name);
-
-                    hitSomeone = true; 
+                    
+                    hitSomeone = true;
                 }
             }
         }
@@ -55,10 +52,20 @@ public class Sword : Weapon
         }
     }
 
+    public override void UpdateAim(float angle)
+    {
+        if (weaponPivot != null)
+        {
+            Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
+
+            weaponPivot.transform.rotation = Quaternion.Lerp(weaponPivot.transform.rotation, targetRotation, Time.deltaTime * swingSpeed);
+        }
+    }
+
     private void OnDrawGizmosSelected()
     {
         if (firePoint == null) return;
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(firePoint.position, attackRange);
     }
 }

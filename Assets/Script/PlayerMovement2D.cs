@@ -17,17 +17,14 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
     public bool hasItem = false;
 
-    //public GameObject weaponPivot;  
-    //public GameObject weaponSprite; 
-    //public Transform firePoint;
-
+    [Header("Weapons")]
     public Gun gun;
     public Sword sword;
     public HeavyGun heavyGun;
+    public Axe axe;
 
     public Weapon currentWeapon;
     private float weaponAngle;
- 
 
     private bool isDead = false;
 
@@ -146,6 +143,9 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
                 break;
             case WeaponType.HeavyGun: 
                 currentWeapon = heavyGun;
+                break;
+            case WeaponType.Axe:
+                currentWeapon = axe;
                 break;
         }
 
