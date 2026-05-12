@@ -13,6 +13,7 @@ public class ItemManager : MonoBehaviourPun
     
     public int maxItemSpawn = 2;
     public int currentItem = 0;
+    public string[] itemPrefabs = { "Item/ItemGun", "Item/ItemSword" };
 
     public static ItemManager instance;
 
@@ -57,11 +58,14 @@ public class ItemManager : MonoBehaviourPun
     {
         int index = Random.Range(0, spawnPoints.Count);
 
+        int randomItemIndex = Random.Range(0, itemPrefabs.Length);
+        string itemToSpawn = itemPrefabs[randomItemIndex];
+
         var go = PhotonNetwork.Instantiate(
-            "Item/ItemGun",
-            spawnPoints[index].position,
-            Quaternion.identity
-        );
+             itemToSpawn,
+             spawnPoints[index].position,
+             Quaternion.identity
+         );
 
         Item goItem = go.GetComponent<Item>();
 
@@ -69,13 +73,13 @@ public class ItemManager : MonoBehaviourPun
         {
             goItem.returnSpawn = spawnPoints[index];
             spawnPoints.RemoveAt(index);
+
+            currentItem++;
         }
         else 
         {
             Debug.Log("error Item spawn not found Item script");
         }
-
-        currentItem++;
 
     }
 

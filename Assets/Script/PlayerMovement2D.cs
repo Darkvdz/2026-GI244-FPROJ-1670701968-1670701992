@@ -21,7 +21,8 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
     //public GameObject weaponSprite; 
     //public Transform firePoint;
 
-    public Gun gun;      
+    public Gun gun;
+    public Sword sword;
    
     public Weapon currentWeapon;
     private float weaponAngle;
@@ -138,6 +139,9 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         {
             case WeaponType.Gun:
                 currentWeapon = gun;
+                break;
+            case WeaponType.Sword: 
+                currentWeapon = sword;
                 break;
         }
 
