@@ -20,8 +20,6 @@ public class HeavyGun : Weapon
                 nextFireTime = Time.time + fireRate; 
 
                 PhotonNetwork.Instantiate(bulletPrefabName, firePoint.position, weaponPivot.transform.rotation);
-
-                Debug.Log("BOOM!" + currentBullet);
             }
             else
             {

@@ -297,6 +297,7 @@ MonoBehaviour:
   itemPrefabs:
   - Item/ItemGun
   - Item/ItemSword
+  - Item/ItemHeavyGun
 --- !u!4 &188852352
 Transform:
   m_ObjectHideFlags: 0

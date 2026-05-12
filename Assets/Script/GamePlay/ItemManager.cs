@@ -13,7 +13,7 @@ public class ItemManager : MonoBehaviourPun
     
     public int maxItemSpawn = 2;
     public int currentItem = 0;
-    public string[] itemPrefabs = { "Item/ItemGun", "Item/ItemSword" };
+    public string[] itemPrefabs = { "Item/ItemGun", "Item/ItemSword", "Item/ItemHeavyGun" };
 
     public static ItemManager instance;
 

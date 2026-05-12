@@ -23,7 +23,8 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
     public Gun gun;
     public Sword sword;
-   
+    public HeavyGun heavyGun;
+
     public Weapon currentWeapon;
     private float weaponAngle;
  
@@ -142,6 +143,9 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
                 break;
             case WeaponType.Sword: 
                 currentWeapon = sword;
+                break;
+            case WeaponType.HeavyGun: 
+                currentWeapon = heavyGun;
                 break;
         }
 
