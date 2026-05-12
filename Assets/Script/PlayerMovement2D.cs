@@ -42,6 +42,12 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
     private void Start()
     {
+
+        if (CameraControll.instance != null)
+        {
+            CameraControll.instance.AddPlayer(transform);
+        }
+
         currentWeapon = null;
         hasItem = false;
         foreach (Weapon weapon in GetComponentsInChildren<Weapon>())
@@ -49,7 +55,6 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
             weapon.Deactivate();
         }
 
-        print("self");
         print(PhotonNetwork.LocalPlayer.ActorNumber);
     }
 
@@ -156,6 +161,11 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void DisablePlayer()
     {
+        if (CameraControll.instance != null)
+        {
+            CameraControll.instance.RemovePlayer(transform);
+        }
+
         gameObject.SetActive(false);
     }
 
