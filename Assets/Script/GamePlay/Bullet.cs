@@ -9,16 +9,23 @@ public class Bullet : MonoBehaviourPun
 
     private bool isDestroyed = false;
 
-    void Start()
+    void OnEnable()
     {
+        isDestroyed = false;
+
         if (photonView.IsMine)
         {
             Invoke("DestroyBullet", destroyTime);
         }
     }
+    void OnDisable()
+    {
+        CancelInvoke("DestroyBullet");
+    }
 
     void Update()
     {
+        if (isDestroyed) return;
         transform.Translate(Vector3.right * speed * Time.deltaTime);
     }
 

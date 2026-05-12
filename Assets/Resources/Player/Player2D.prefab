@@ -415,6 +415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Gun
   damage: 10
+  maxBullet: 20
   firePoint: {fileID: 3687818040991363217}
   weaponPivot: {fileID: 6830502870105055775}
   weaponSprite: {fileID: 8689437462336912264}

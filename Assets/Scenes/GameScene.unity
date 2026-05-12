@@ -1288,6 +1288,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1551497448}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1853855021
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1853855023}
+  - component: {fileID: 1853855022}
+  m_Layer: 0
+  m_Name: PoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1853855022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853855021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f210a6028844efc49be011c9752e3e9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhotonPoolManager
+  bulletPrefab: {fileID: 6312694159884019292, guid: 62b9313843e33a24fb85958c25cda5b5, type: 3}
+  poolSize: 100
+--- !u!4 &1853855023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853855021}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.74948, y: -6.13629, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1873728061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,6 +1363,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb3ce1b00ff48e40a10f295e3d28ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  playerScore: 00000000000000000000000000000000
+  playerDeath: 00000000
+  playerActive: 00000000
 --- !u!4 &1873728063
 Transform:
   m_ObjectHideFlags: 0
@@ -1483,3 +1532,4 @@ SceneRoots:
   - {fileID: 241142163}
   - {fileID: 1873728063}
   - {fileID: 1439427872}
+  - {fileID: 1853855023}

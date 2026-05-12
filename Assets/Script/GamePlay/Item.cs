@@ -1,13 +1,26 @@
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Item : MonoBehaviourPun
 {
     public Transform returnSpawn ;
     public WeaponType weaponType;
 
+    public GameObject uiPickup;
+
     private bool isCollectedLocal = false;
     private bool isDestroyedOnServer = false;
+
+    private bool isLocalPlayerNear = false;
+    private PlayerMovement2D localPlayerScript;
+    void Start()
+    {
+        if (uiPickup != null)
+        {
+            uiPickup.SetActive(false);
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -17,23 +30,52 @@ public class Item : MonoBehaviourPun
         {
             PlayerMovement2D PL2DScript = collision.gameObject.GetComponent<PlayerMovement2D>();
 
-            if (PL2DScript != null)
+            if (PL2DScript != null && PL2DScript.photonView.IsMine)
             {
-                isCollectedLocal = true;
+                isLocalPlayerNear = true;
+                localPlayerScript = PL2DScript;
 
-                PL2DScript.PickupWeapon(weaponType);
-
-                Debug.Log("Collected by " + collision.gameObject.name);
-                photonView.RPC("RequestDestroyItem", RpcTarget.MasterClient);
-            }
-            else
-            {
-                Debug.Log("error: Item not found PlayerMovement2D script");
-            }
+                if (uiPickup != null && !isCollectedLocal)
+                {
+                    uiPickup.SetActive(true);
+                }
+            }  
         }
 
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerMovement2D PL2DScript = collision.gameObject.GetComponentInParent<PlayerMovement2D>();
 
+            if (PL2DScript != null && PL2DScript.photonView.IsMine)
+            {
+                isLocalPlayerNear = false;
+                localPlayerScript = null;
+
+                if (uiPickup != null)
+                {
+                    uiPickup.SetActive(false);
+                }
+
+            }
+        }
+    }
+    private void Update()
+    {
+        if (!isLocalPlayerNear || isCollectedLocal) return;
+
+        if (Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            isCollectedLocal = true;
+            if (uiPickup != null) uiPickup.SetActive(false);
+
+            localPlayerScript.PickupWeapon(weaponType);
+            Debug.Log("Collected by " + PhotonNetwork.NickName);
+            photonView.RPC("RequestDestroyItem", RpcTarget.MasterClient);
+        }
+    }
     [PunRPC]
     void RequestDestroyItem()
     {

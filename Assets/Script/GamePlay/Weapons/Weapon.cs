@@ -4,6 +4,10 @@ using Photon.Pun;
 public abstract class Weapon : MonoBehaviourPun
 {
     public int damage = 10;
+
+    public int maxBullet = 10; 
+    public int currentBullet; 
+
     public Transform firePoint;
     public GameObject weaponPivot;
     public GameObject weaponSprite;
@@ -13,6 +17,7 @@ public abstract class Weapon : MonoBehaviourPun
     public void Init(PlayerMovement2D player)
     {
         owner = player;
+        currentBullet = maxBullet;
     }
 
     public void Activate()
