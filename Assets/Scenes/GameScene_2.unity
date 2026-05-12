@@ -294,6 +294,9 @@ MonoBehaviour:
   waitTimeSpawn: 5
   maxItemSpawn: 2
   currentItem: 0
+  itemPrefabs:
+  - Item/ItemGun
+  - Item/ItemSword
 --- !u!4 &188852352
 Transform:
   m_ObjectHideFlags: 0
@@ -1424,6 +1427,8 @@ MonoBehaviour:
   playerScore: 00000000000000000000000000000000
   playerDeath: 00000000
   playerActive: 00000000
+  maps:
+  - GameScene
 --- !u!4 &1873728063
 Transform:
   m_ObjectHideFlags: 0

@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         set { death = value; }
     }
 
-    private string[] maps = { "GameScene" , "GameScene_2" };
+    [SerializeField] private string[] maps ;
 
 
     private void Awake()
