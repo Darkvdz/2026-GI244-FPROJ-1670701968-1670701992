@@ -86,7 +86,10 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
         if (attackAction.WasPressedThisFrame() && hasItem && currentWeapon != null)
         {
-            currentWeapon.Use();
+            if (hasItem && currentWeapon != null)
+            {
+                currentWeapon.Use();
+            }
         }
 
         if (hasItem && currentWeapon != null)
