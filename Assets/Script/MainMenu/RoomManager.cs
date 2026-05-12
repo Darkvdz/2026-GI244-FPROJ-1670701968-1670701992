@@ -35,6 +35,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
         joinButton.onClick.AddListener(JoinRoom);
         createButton.onClick.AddListener(CreateRoom);
+
         startButton.onClick.AddListener(() =>
         {
             if (playerNumber < 2) return;
@@ -45,6 +46,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
             PhotonNetwork.LoadLevel("GameScene");
         });
+
         leaveButton.onClick.AddListener(LeaveRoom);
     }
 
