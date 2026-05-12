@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System.IO;
 using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,6 +9,7 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
     public float speed = 5f;
     public float jumpForce = 2f;
     public float hp = 100;
+    private Vector3 networkPosition;
 
     public InputAction moveAction;
     public InputAction jumpAction;
@@ -58,6 +60,12 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         {
             if (hasItem && currentWeapon != null)
             {
+                transform.position = Vector3.Lerp(
+                    transform.position,
+                    networkPosition,
+                    Time.deltaTime * 10f
+                );
+
                 currentWeapon.UpdateAim(weaponAngle);
             }
             return;
@@ -157,10 +165,12 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         {
             // Owner send
 
-            //Debug.Log("SEND HP from " + PhotonNetwork.NickName + ": " + hp);
             stream.SendNext(hp);
             stream.SendNext(hasItem);
             stream.SendNext(weaponAngle);
+
+            stream.SendNext(transform.position);
+
         }
         else
         {
@@ -169,6 +179,8 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
             hp = (float)stream.ReceiveNext();
             hasItem = (bool)stream.ReceiveNext();
             weaponAngle = (float)stream.ReceiveNext();
+
+            networkPosition = (Vector3)stream.ReceiveNext();
 
             Debug.Log(
                 "Local: " + PhotonNetwork.NickName +
