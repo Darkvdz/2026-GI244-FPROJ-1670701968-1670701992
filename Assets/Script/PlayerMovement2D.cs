@@ -207,4 +207,14 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
             );
         }
     }
+
+
+    private void OnDestroy()
+    {
+        if (CameraControll.instance != null)
+        {
+            CameraControll.instance.RemovePlayer(transform);
+        }
+    }
+
 }

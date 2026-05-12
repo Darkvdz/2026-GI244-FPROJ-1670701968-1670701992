@@ -62,7 +62,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     public void PlayerDied()
     {
-        print("die");
+       // print("die");
         
         photonView.RPC("CheckLastPlayerRPC", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber);
     }
