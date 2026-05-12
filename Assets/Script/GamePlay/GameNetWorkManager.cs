@@ -40,15 +40,19 @@ public class GameNetWorkManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             GameManager.instance.ResetDeadStatus();
+            PhotonNetwork.LoadLevel(GameManager.instance.GetRandomScene());
         }
 
-        PhotonNetwork.LoadLevel(GameManager.instance.GetRandomScene());
+        
     }
 
     [PunRPC]
     void EndGame(string winnerName)
     {
-        GameManager.instance.EndGame(winnerName);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GameManager.instance.EndGame(winnerName);
+        }
 
     }
 }

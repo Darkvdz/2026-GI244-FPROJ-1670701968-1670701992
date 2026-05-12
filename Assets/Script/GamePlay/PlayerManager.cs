@@ -11,6 +11,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     public Transform[] spawnPoints;
 
+    private bool hasSpawned = false;
+
     private void Awake()
     {
         instance = this;
@@ -20,26 +22,29 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        print("start");
         if (PhotonNetwork.IsMasterClient)
         {
             GameManager.instance.ResetDeadStatus();
-            print("reset");
         }
 
-        PhotonNetwork.LocalPlayer.TagObject = null;
+        //PhotonNetwork.LocalPlayer.TagObject = null;
         SpawnPlayer();
-        print("reset_2");
     }
 
     private void Update()
     {
-        print("test_Up" + this.gameObject.GetInstanceID());
+        //print("test_Up" + this.gameObject.GetInstanceID());
     }
+
+
 
     public void SpawnPlayer()
     {
-        if (PhotonNetwork.LocalPlayer.TagObject != null) return;
+        print("Work");
+
+        if (hasSpawned) return;
+
+        hasSpawned = true;
 
         int index = (PhotonNetwork.LocalPlayer.ActorNumber - 1) % spawnPoints.Length;
 
@@ -52,11 +57,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         );
 
         PhotonNetwork.LocalPlayer.TagObject = player;
-
-        foreach (var players in PhotonNetwork.PlayerList)
-        {
-            Debug.Log(players.NickName + " ID: " + players.ActorNumber);
-        }
 
     }
 
