@@ -2,5 +2,5 @@ using UnityEngine;
 
 public enum WeaponType
 {
-    Gun, Sword, HeavyGun, Axe
+    Gun, Sword, HeavyGun, Axe, Boomerang
 }

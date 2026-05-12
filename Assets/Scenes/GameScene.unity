@@ -299,6 +299,7 @@ MonoBehaviour:
   - Item/ItemSword
   - Item/ItemHeavyGun
   - Item/ItemAxe
+  - Item/ItemBoomerang
 --- !u!4 &188852352
 Transform:
   m_ObjectHideFlags: 0

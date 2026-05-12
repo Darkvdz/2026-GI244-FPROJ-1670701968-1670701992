@@ -14,7 +14,7 @@ public abstract class Weapon : MonoBehaviourPun
 
     protected PlayerMovement2D owner;
 
-    public void Init(PlayerMovement2D player)
+    public virtual void Init(PlayerMovement2D player)
     {
         owner = player;
         currentBullet = maxBullet;
