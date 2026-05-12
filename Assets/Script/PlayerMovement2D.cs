@@ -15,6 +15,13 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
     public InputAction jumpAction;
     public InputAction attackAction;
 
+    public Transform eyesTransform;
+    private float baseEyeX;
+    private SpriteRenderer playerSprite; 
+    private SpriteRenderer eyeSprite;
+
+    private bool isFacingLeftBody = false;
+
     public bool hasItem = false;
 
     [Header("Weapons")]
@@ -37,6 +44,8 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         attackAction = InputSystem.actions.FindAction("Attack");
 
         rb = GetComponent<Rigidbody2D>();
+
+        playerSprite = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -55,6 +64,12 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         }
 
         print(PhotonNetwork.LocalPlayer.ActorNumber);
+
+        if (eyesTransform != null)
+        {
+            baseEyeX = Mathf.Abs(eyesTransform.localPosition.x);
+            eyeSprite = eyesTransform.GetComponent<SpriteRenderer>();
+        }
     }
 
     void Update()
@@ -71,35 +86,81 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
                 );
 
                 currentWeapon.UpdateAim(weaponAngle);
+               
+                //FlipWeaponMTP
+                bool isAimingLeft = Mathf.Abs(weaponAngle) > 90f;
+                if (currentWeapon.weaponPivot != null)
+                {
+                    float flipY = isAimingLeft ? -1f : 1f;
+                    currentWeapon.weaponPivot.transform.localScale = new Vector3(1, flipY, 1);
+                }
             }
+
+            //FlipPlayerMTP
+            if (playerSprite != null) playerSprite.flipX = isFacingLeftBody;
+            if (eyesTransform != null)
+            {
+                if (eyeSprite != null) eyeSprite.flipX = isFacingLeftBody;
+                float newX = isFacingLeftBody ? -baseEyeX : baseEyeX;
+                eyesTransform.localPosition = new Vector3(newX, eyesTransform.localPosition.y, eyesTransform.localPosition.z);
+            }
+
             return;
         }
 
+        //Walk
         var horizontalInput = moveAction.ReadValue<Vector2>().x;
         transform.Translate(Vector2.right * speed * horizontalInput * Time.deltaTime);
 
+        //Jump
         if (jumpAction.WasPressedThisFrame())
         {
             rb.AddForce(jumpForce * Vector2.up, ForceMode2D.Impulse);
         }
 
-        if (attackAction.WasPressedThisFrame() && hasItem && currentWeapon != null)
+        //Flip player
+        if (horizontalInput != 0)
         {
-            if (hasItem && currentWeapon != null)
+            isFacingLeftBody = horizontalInput < 0; 
+
+            if (playerSprite != null) playerSprite.flipX = isFacingLeftBody; 
+
+            if (eyesTransform != null)
             {
-                currentWeapon.Use();
+                if (eyeSprite != null) eyeSprite.flipX = isFacingLeftBody; 
+
+                float newX = isFacingLeftBody ? -baseEyeX : baseEyeX; 
+                eyesTransform.localPosition = new Vector3(newX, eyesTransform.localPosition.y, eyesTransform.localPosition.z);
             }
         }
 
+        //Attack 
+        if (attackAction.WasPressedThisFrame() && hasItem && currentWeapon != null)
+        {
+            currentWeapon.Use();
+        }
+
+        // Rotateweapon
         if (hasItem && currentWeapon != null)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             mousePos.z = 0f;
             Vector3 aimDirection = (mousePos - transform.position).normalized;
             weaponAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+
             currentWeapon.UpdateAim(weaponAngle);
+
+            // FlipWeapons
+            bool isAimingLeft = Mathf.Abs(weaponAngle) > 90f;
+            if (currentWeapon.weaponPivot != null)
+            {
+                float flipY = isAimingLeft ? -1f : 1f;
+                currentWeapon.weaponPivot.transform.localScale = new Vector3(1, flipY, 1);
+            }
         }
+
     }
+
     public void PickupWeapon(WeaponType type)
     {
         photonView.RPC("RPC_PickupWeapon", RpcTarget.All, (int)type);
@@ -192,6 +253,8 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
             stream.SendNext(transform.position);
 
+            stream.SendNext(isFacingLeftBody);
+
         }
         else
         {
@@ -202,6 +265,8 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
             weaponAngle = (float)stream.ReceiveNext();
 
             networkPosition = (Vector3)stream.ReceiveNext();
+
+            isFacingLeftBody = (bool)stream.ReceiveNext();
 
             Debug.Log(
                 "Local: " + PhotonNetwork.NickName +
