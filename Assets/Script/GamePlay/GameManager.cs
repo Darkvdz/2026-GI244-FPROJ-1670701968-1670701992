@@ -163,6 +163,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             playerActive[otherPlayer.ActorNumber - 1] = false;
 
         }
+
     }
 
 
