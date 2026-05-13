@@ -131,6 +131,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         joinButton.interactable = false;
         SetPlayerName();
         PhotonNetwork.JoinRoom(roomName);
+
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)

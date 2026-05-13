@@ -17,19 +17,26 @@ public class GameNetWorkManager : MonoBehaviourPunCallbacks
     }
 
 
-    public void CheckGameEnd(int idPlayer)
+    public void CheckGameEnd(Player player)
     {
-        int score = GameManager.instance.PlayerScore[idPlayer - 1];
-        string Winner = PlayerManager.instance.GetPlayerName(idPlayer);
+        print("player " + player);
+
+        int score = player.CustomProperties.ContainsKey("score")
+            ? (int)player.CustomProperties["score"]
+            : 0;
+
+        print("Score " + score);
 
         if (score >= 3)
         {
-            photonView.RPC("EndGame", RpcTarget.All, Winner);
+            photonView.RPC("EndGame", RpcTarget.All, player.NickName);
         }
         else
         {
             photonView.RPC("StartNextRound", RpcTarget.All);
         }
+
+
     }
 
     [PunRPC]

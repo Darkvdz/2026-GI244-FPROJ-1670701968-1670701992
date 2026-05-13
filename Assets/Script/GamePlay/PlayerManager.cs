@@ -62,16 +62,19 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     public void PlayerDied()
     {
-       // print("die");
-        
-        photonView.RPC("CheckLastPlayerRPC", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber);
+        Hashtable props = new Hashtable();
+        props["dead"] = true;
+
+        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+
+        photonView.RPC("CheckLastPlayerRPC", RpcTarget.MasterClient);
     }
 
     [PunRPC]
-    void CheckLastPlayerRPC(int idPlayer)
+    void CheckLastPlayerRPC()
     {
         print("host check");
-        GameManager.instance.CheckLastPlayer(idPlayer);
+        GameManager.instance.StartCheckLastPlayer();
     }
 
 

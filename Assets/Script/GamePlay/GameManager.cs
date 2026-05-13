@@ -2,6 +2,7 @@ using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,27 +11,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 {
 
     public static GameManager instance;
-
-    [SerializeField] private int[] playerScore = { 0, 0, 0, 0 };
-    public int[] PlayerScore
-    {
-        get { return playerScore; }
-        set { playerScore = value; }
-    }
-
-    [SerializeField] private bool[] playerDeath = { false, false, false, false};
-    public bool[] PlayerDeath
-    {
-        get { return playerDeath; }
-        set { playerDeath = value; }
-    }
-
-    [SerializeField] private bool[] playerActive = { false, false, false, false };
-    public bool[] PlayerActive
-    {
-        get { return playerActive; }
-        set { playerActive = value; }
-    }
 
     private int currentPlayer = 0;
     public int CurrentPlayer
@@ -46,14 +26,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         set { roomPlayer = value; }
     }
 
-    private int death = 0;
-    public int Death
-    {
-        get { return death; }
-        set { death = value; }
-    }
 
-    [SerializeField] private string[] maps ;
+    [SerializeField] private string[] maps; //this is error because it singleton why u use SerializeField!!!!!!
+
+    private bool IsDead(Player player)
+    {
+        return player.CustomProperties.ContainsKey("dead") &&
+               (bool)player.CustomProperties["dead"];
+    }
 
 
     private void Awake()
@@ -70,67 +50,104 @@ public class GameManager : MonoBehaviourPunCallbacks
         DontDestroyOnLoad(gameObject);
 
         roomPlayer = PhotonNetwork.PlayerList.Length;
-        for (int i = 0; i < roomPlayer; i++) 
-        {
-            playerActive[i] = true;
-        }
 
-
-
-        print(roomPlayer);
 
 
     }
 
-
-
-
-
-    public void CheckLastPlayer(int idPlayer)
+    private void Update()
     {
-        death++;
-        playerDeath[idPlayer - 1] = true;
-
-
-        if (death >= (currentPlayer - 1) )
+        if (Input.GetKey(KeyCode.V))
         {
-            print("win");
-
-            int winnerIndex = GetWinnerIdex();
-
-            string Winner = PlayerManager.instance.GetPlayerName(winnerIndex);
-
-            Debug.Log("Winner: " + Winner);
-
-            AddScore(winnerIndex);
-
-            GameNetWorkManager.instance.CheckGameEnd(winnerIndex);
+            ShowAllPlayerData();
         }
     }
 
-    public int GetWinnerIdex() 
+
+    private void AddProperties() 
     {
-        for (int i = 0; i < roomPlayer; i++) 
-        {
-            if (!playerDeath[i] && playerActive[i]) 
-            {
-                print(i);
-                return i + 1;
-            }
-        }
-        return 5;
+        ExitGames.Client.Photon.Hashtable props = new ExitGames.Client.Photon.Hashtable();
+        props["score"] = 0;
+        props["dead"] = false;
+
+        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
     }
 
-    void AddScore(int idPlayer)
+    void ShowAllPlayerData()
     {
-        playerScore[idPlayer - 1] += 1;
+        foreach (var player in PhotonNetwork.PlayerList)
+        {
+            int score = player.CustomProperties.ContainsKey("score")
+                ? (int)player.CustomProperties["score"]
+                : 0;
+
+            bool dead = player.CustomProperties.ContainsKey("dead")
+                ? (bool)player.CustomProperties["dead"]
+                : false;
+
+            Debug.Log(
+                "Name: " + player.NickName +
+                " | Score: " + score +
+                " | Dead: " + dead
+            );
+        }
+    }
+
+
+    public void StartCheckLastPlayer()
+    { 
+        StartCoroutine(CheckLastPlayer());
+    }
+
+    IEnumerator CheckLastPlayer()
+    {
+
+        print("start check player");
+        yield return new WaitForSeconds(3f);
+
+        var alivePlayers = PhotonNetwork.PlayerList
+           .Where(p => !IsDead(p))   
+           .ToList();
+
+        print(alivePlayers.Count);
+
+        if (alivePlayers.Count == 1)
+        {
+            Player winner = alivePlayers[0];
+
+            Debug.Log("Winner: " + winner.NickName);
+
+            AddScore(winner);
+            GameNetWorkManager.instance.CheckGameEnd(winner);
+        }
+
+        yield return null;
+    }
+
+    void AddScore(Player player)
+    {
+
+        int current = player.CustomProperties.ContainsKey("score")
+        ? (int)player.CustomProperties["score"]
+        : 0;
+
+        ExitGames.Client.Photon.Hashtable props = new ExitGames.Client.Photon.Hashtable();
+        props["score"] = current + 1;
+
+        player.SetCustomProperties(props);
+
     }
 
 
     public void ResetDeadStatus()
     {
-        death = 0;
-        Array.Fill(playerDeath, false);
+        foreach (var p in PhotonNetwork.PlayerList)
+        {
+            ExitGames.Client.Photon.Hashtable props = new ExitGames.Client.Photon.Hashtable();
+            props["dead"] = false;
+
+            p.SetCustomProperties(props);
+        }
     }
 
     public void EndGame(string winnerName)
@@ -154,20 +171,25 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            currentPlayer -= 1;
-
-            if ((playerDeath[otherPlayer.ActorNumber - 1])) 
-            {
-                death += 1;
-            }
-            playerActive[otherPlayer.ActorNumber - 1] = false;
-
+           StartCoroutine(CheckLastPlayer());
         }
 
     }
 
 
 
+
+
+    /*[PunRPC]
+    void SyncScore(int[] scores, bool[] deaths, bool[] active, int deathCount)
+    {
+        playerScore = scores;
+        playerDeath = deaths;
+        playerActive = active;
+        death = deathCount;
+
+        Debug.Log("Sync data from host");
+    }*/
 
 
 

@@ -50,7 +50,7 @@ public class ItemManager : MonoBehaviourPun
             else 
             {
                 yield return null;
-                Debug.Log("spawn Full");
+                //Debug.Log("spawn Full");
             }
         }
     }

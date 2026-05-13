@@ -174,11 +174,11 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
         hp -= damage;
 
-        Debug.Log(
+        /*Debug.Log(
             "Local: " + PhotonNetwork.NickName +
             " | Owner: " + photonView.Owner.NickName +
             " | HP: " + hp
-        );
+        );*/
 
         if (hp <= 0)
         {
@@ -227,7 +227,7 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         if (isDead) return;
         isDead = true;
 
-        Debug.Log("Dead: " + PhotonNetwork.NickName);
+        //Debug.Log("Dead: " + PhotonNetwork.NickName);
 
         PlayerManager.instance.PlayerDied(); 
 
@@ -272,12 +272,12 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
             isFacingLeftBody = (bool)stream.ReceiveNext();
 
-            Debug.Log(
+            /*Debug.Log(
                 "Local: " + PhotonNetwork.NickName +
                 " | Owner: " + photonView.Owner.NickName +
                 " | HP: " + hp +
                 " | ItemHold: " + hasItem
-            );
+            );*/
         }
     }
 
