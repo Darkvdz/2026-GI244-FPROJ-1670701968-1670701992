@@ -15,13 +15,6 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
     public InputAction jumpAction;
     public InputAction attackAction;
 
-    public Transform eyesTransform;
-    private float baseEyeX;
-    private SpriteRenderer playerSprite; 
-    private SpriteRenderer eyeSprite;
-
-    private bool isFacingLeftBody = false;
-
     public bool hasItem = false;
 
     [Header("Weapons")]
@@ -46,12 +39,10 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
         rb = GetComponent<Rigidbody2D>();
 
-        playerSprite = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
-
         if (CameraControll.instance != null)
         {
             CameraControll.instance.AddPlayer(transform);
@@ -65,12 +56,6 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         }
 
         print(PhotonNetwork.LocalPlayer.ActorNumber);
-
-        if (eyesTransform != null)
-        {
-            baseEyeX = Mathf.Abs(eyesTransform.localPosition.x);
-            eyeSprite = eyesTransform.GetComponent<SpriteRenderer>();
-        }
     }
 
     void Update()
@@ -97,15 +82,6 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
                 }
             }
 
-            //FlipPlayerMTP
-            if (playerSprite != null) playerSprite.flipX = isFacingLeftBody;
-            if (eyesTransform != null)
-            {
-                if (eyeSprite != null) eyeSprite.flipX = isFacingLeftBody;
-                float newX = isFacingLeftBody ? -baseEyeX : baseEyeX;
-                eyesTransform.localPosition = new Vector3(newX, eyesTransform.localPosition.y, eyesTransform.localPosition.z);
-            }
-
             return;
         }
 
@@ -117,22 +93,6 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         if (jumpAction.WasPressedThisFrame())
         {
             rb.AddForce(jumpForce * Vector2.up, ForceMode2D.Impulse);
-        }
-
-        //Flip player
-        if (horizontalInput != 0)
-        {
-            isFacingLeftBody = horizontalInput < 0; 
-
-            if (playerSprite != null) playerSprite.flipX = isFacingLeftBody; 
-
-            if (eyesTransform != null)
-            {
-                if (eyeSprite != null) eyeSprite.flipX = isFacingLeftBody; 
-
-                float newX = isFacingLeftBody ? -baseEyeX : baseEyeX; 
-                eyesTransform.localPosition = new Vector3(newX, eyesTransform.localPosition.y, eyesTransform.localPosition.z);
-            }
         }
 
         //Attack 
@@ -257,8 +217,6 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
             stream.SendNext(transform.position);
 
-            stream.SendNext(isFacingLeftBody);
-
         }
         else
         {
@@ -269,8 +227,6 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
             weaponAngle = (float)stream.ReceiveNext();
 
             networkPosition = (Vector3)stream.ReceiveNext();
-
-            isFacingLeftBody = (bool)stream.ReceiveNext();
 
             /*Debug.Log(
                 "Local: " + PhotonNetwork.NickName +
