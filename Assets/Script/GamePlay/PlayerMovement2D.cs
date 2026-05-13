@@ -222,7 +222,7 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         }
     }
 
-    void Die()
+    public void Die()
     {
         if (isDead) return;
         isDead = true;
