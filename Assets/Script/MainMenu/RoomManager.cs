@@ -22,12 +22,20 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public Button startButton;
     public Button leaveButton;
 
+    public Button quitButton;
+
+    
+    public Button SettingButton;
+    public Button SettingLeaveButton;
+
+
     public TextMeshProUGUI RoomName;
     public TextMeshProUGUI Requirement;
     public TextMeshProUGUI numberOfPlayer;
 
     public GameObject MainMenu;
     public GameObject RoomMenu;
+    public GameObject Setting;
 
     private void Awake()
     {
@@ -46,6 +54,25 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
             PhotonNetwork.LoadLevel("GameScene");
         });
+
+        quitButton.onClick.AddListener(() =>
+        {
+            Application.Quit();
+
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        });
+
+        SettingButton.onClick.AddListener(() => {
+            Setting.SetActive(true);
+        });
+
+        SettingLeaveButton.onClick.AddListener(() => {
+            Setting.SetActive(false);
+        });
+
+
 
         leaveButton.onClick.AddListener(LeaveRoom);
     }
