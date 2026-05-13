@@ -4,6 +4,7 @@ using Photon.Realtime;
 using System;
 using System.Collections;
 using System.Linq;
+using Unity.Multiplayer.PlayMode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -26,9 +27,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         set { roomPlayer = value; }
     }
 
-
-    [SerializeField] private string[] maps; //this is error because it singleton why u use SerializeField!!!!!!
-
     private bool IsDead(Player player)
     {
         return player.CustomProperties.ContainsKey("dead") &&
@@ -38,6 +36,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+
         if (instance != null) 
         {
                 
@@ -161,10 +160,29 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         Destroy(gameObject);
     }
-        
+
+
+
+    public string[] GetAvailableMaps()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        string[] allMaps = { "GameScene", "GameScene_2" };
+
+        return allMaps.Where(scene => scene != currentScene).ToArray();
+    }
+
+
     public string GetRandomScene()
     {
-        return maps[UnityEngine.Random.Range(0, maps.Length)];
+        var stageRandom = false;
+
+        var maps = GetAvailableMaps();
+        print(maps);
+
+        var randomMap = maps[UnityEngine.Random.Range(0, maps.Length)];
+        print(randomMap);
+        return randomMap;
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -175,25 +193,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
 
     }
-
-
-
-
-
-    /*[PunRPC]
-    void SyncScore(int[] scores, bool[] deaths, bool[] active, int deathCount)
-    {
-        playerScore = scores;
-        playerDeath = deaths;
-        playerActive = active;
-        death = deathCount;
-
-        Debug.Log("Sync data from host");
-    }*/
-
-
-
-
 
 
 
