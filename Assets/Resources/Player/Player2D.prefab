@@ -594,6 +594,7 @@ GameObject:
   - component: {fileID: 8769179401779896672}
   - component: {fileID: 2381288118238941194}
   - component: {fileID: 6752940472041683661}
+  - component: {fileID: 7499280424771633289}
   m_Layer: 0
   m_Name: Player2D
   m_TagString: Player
@@ -822,7 +823,6 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
-  eyesTransform: {fileID: 0}
   hasItem: 0
   gun: {fileID: 7642818413419309154}
   sword: {fileID: 6588929133895509924}
@@ -830,6 +830,19 @@ MonoBehaviour:
   axe: {fileID: 5549241019665726787}
   boomerang: {fileID: 3325879433128394115}
   currentWeapon: {fileID: 0}
+--- !u!114 &7499280424771633289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2311058952884510591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 744d4790c6675a142a4f59fabb97c377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBuffManager
+  isInvincible: 0
 --- !u!1 &2569836590202125849
 GameObject:
   m_ObjectHideFlags: 0

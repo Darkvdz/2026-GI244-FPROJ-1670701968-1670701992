@@ -130,7 +130,15 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void TakeDamage(int damage)
     {
-        if (!photonView.IsMine) return; 
+        if (!photonView.IsMine) return;
+
+        PlayerBuffManager buffManager = GetComponent<PlayerBuffManager>();
+
+        if (buffManager != null && buffManager.isInvincible)
+        {
+            Debug.Log("Player is Invincible");
+            return;
+        }
 
         hp -= damage;
 
