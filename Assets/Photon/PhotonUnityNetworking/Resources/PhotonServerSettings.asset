@@ -50,6 +50,7 @@ MonoBehaviour:
   - SyncScore
   - RPC_DestroyItem
   - RPC_ApplyBuff
+  - StartNextRoundCall
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

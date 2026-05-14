@@ -34,7 +34,7 @@ public class GameNetWorkManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            photonView.RPC("StartNextRound", RpcTarget.All);
+            photonView.RPC("StartNextRoundCall", RpcTarget.All);
         }
 
 
