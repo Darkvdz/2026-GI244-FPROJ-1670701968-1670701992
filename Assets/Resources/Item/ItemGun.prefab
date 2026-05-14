@@ -292,6 +292,7 @@ MonoBehaviour:
   returnSpawn: {fileID: 0}
   weaponType: 0
   uiPickup: {fileID: 5702791558580443985}
+  equipSFX: {fileID: 8300000, guid: fdf8038410870f747b02c1a098251ce1, type: 3}
 --- !u!114 &6029487790690773837
 MonoBehaviour:
   m_ObjectHideFlags: 0

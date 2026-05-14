@@ -10,6 +10,8 @@ public class Axe : Weapon
 
     public float swingSpeed = 3f; 
 
+    public AudioClip axeSFX;
+
     public override void Use()
     {
         Debug.Log("ATK by Axe!");
@@ -21,6 +23,8 @@ public class Axe : Weapon
         {
             if (Time.time >= nextDamageTime)
             {
+                SFXManager.instance.playSound(axeSFX);
+
                 AxeAttack();
             }
         }

@@ -142,6 +142,7 @@ MonoBehaviour:
   buffType: 0
   effectAmount: 50
   duration: 0
+  buffSFX: {fileID: 8300000, guid: 9d7fc5ea9efc24743aa2d0d0756ee1b3, type: 3}
 --- !u!58 &3739928184558386195
 CircleCollider2D:
   m_ObjectHideFlags: 0

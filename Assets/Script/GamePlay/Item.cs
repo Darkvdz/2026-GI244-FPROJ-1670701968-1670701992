@@ -15,6 +15,9 @@ public class Item : MonoBehaviourPun
 
     private bool isLocalPlayerNear = false;
     private PlayerMovement2D localPlayerScript;
+
+    public AudioClip equipSFX;
+
     void Start()
     {
         if (uiPickup != null)
@@ -35,6 +38,8 @@ public class Item : MonoBehaviourPun
             {
                 isLocalPlayerNear = true;
                 localPlayerScript = PL2DScript;
+
+                SFXManager.instance.playSound(equipSFX);
 
                 if (uiPickup != null && !isCollectedLocal)
                 {

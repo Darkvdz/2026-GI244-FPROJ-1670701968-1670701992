@@ -6,13 +6,6 @@ public class SFXManager : MonoBehaviour
 
     public AudioSource sfxSource;
 
-    [SerializeField] private AudioClip shootSFX;
-    [SerializeField] private AudioClip slashSFX;
-    [SerializeField] private AudioClip outOfAmmoSFX;
-    [SerializeField] private AudioClip collectSFX;
-    [SerializeField] private AudioClip buffSFX;
-
-
     private void Awake()
     {
         if (instance != null)

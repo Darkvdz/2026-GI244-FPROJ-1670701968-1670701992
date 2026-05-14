@@ -15,6 +15,8 @@ public class BuffItem : MonoBehaviourPun
 
     private bool isPickedUp = false;
 
+    public AudioClip buffSFX;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isPickedUp) return;
@@ -25,6 +27,8 @@ public class BuffItem : MonoBehaviourPun
 
             if (playerView != null && playerView.IsMine)
             {
+                SFXManager.instance.playSound(buffSFX);
+
                 playerView.RPC("RPC_ApplyBuff", RpcTarget.All, (int)buffType, effectAmount, duration);
 
                 photonView.RPC("RPC_DestroyItem", RpcTarget.AllBuffered);

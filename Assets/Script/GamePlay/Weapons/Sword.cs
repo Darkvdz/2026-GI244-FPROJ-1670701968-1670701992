@@ -8,6 +8,8 @@ public class Sword : Weapon
     public float damageRateTime = 0.5f; 
     private float nextDamageTime = 0f;
 
+    public AudioClip SlashSFX;
+
     public override void Use()
     {
         Debug.Log("ATK by Sword!");   
@@ -20,6 +22,8 @@ public class Sword : Weapon
            
             if (Time.time >= nextDamageTime)
             {
+                SFXManager.instance.playSound(SlashSFX);
+
                 SwordAttack();
             }
         }

@@ -3,13 +3,16 @@ using Photon.Pun;
 
 public class Boomerang : Weapon
 {
-   
     public string bulletName = "BoomerangPrefab"; 
 
+    public AudioClip bmrSFX;
+    public AudioSource bmrAudioSource;
     public override void Init(PlayerMovement2D player)
     {
         base.Init(player);
         currentBullet = 1;
+
+        bmrAudioSource = GetComponent<AudioSource>();
     }
 
     public override void Use()
@@ -18,7 +21,13 @@ public class Boomerang : Weapon
 
         if (currentBullet > 0)
         {
-            currentBullet--; 
+            currentBullet--;
+
+            if (bmrSFX != null)
+            {
+                bmrAudioSource.clip = bmrSFX; // ใส่แผ่นเสียง
+                bmrAudioSource.Play();        // กดปุ่ม Play
+            }
 
             object[] data = new object[] { owner.photonView.ViewID };
 
@@ -33,6 +42,11 @@ public class Boomerang : Weapon
 
     public void ReturnBoomerang()
     {
-        currentBullet = 1; 
+        currentBullet = 1;
+
+        if (bmrAudioSource != null && bmrAudioSource.isPlaying)
+        {
+            bmrAudioSource.Stop();
+        }
     }
 }

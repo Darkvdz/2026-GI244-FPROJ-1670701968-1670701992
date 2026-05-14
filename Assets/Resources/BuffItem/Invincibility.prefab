@@ -50,6 +50,7 @@ MonoBehaviour:
   buffType: 1
   effectAmount: 0
   duration: 5
+  buffSFX: {fileID: 8300000, guid: 9d7fc5ea9efc24743aa2d0d0756ee1b3, type: 3}
 --- !u!60 &4275431552171326464
 PolygonCollider2D:
   m_ObjectHideFlags: 0

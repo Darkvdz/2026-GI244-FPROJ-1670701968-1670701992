@@ -84,6 +84,8 @@ MonoBehaviour:
   weaponSprite: {fileID: 500456816793167999}
   bulletPrefabName: HeavyBullet
   fireRate: 2
+  heavyGunSFX: {fileID: 8300000, guid: de34d0231f2685d45a95c4a8c1e87d23, type: 3}
+  heavyGunOutAmmo: {fileID: 8300000, guid: 3770f1cc10d68044bb41417c4701e9d5, type: 3}
 --- !u!1 &315850282116732796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1369,6 +1371,7 @@ MonoBehaviour:
   weaponSprite: {fileID: 1101704876993529355}
   attackRange: 0.75
   damageRateTime: 1
+  SlashSFX: {fileID: 8300000, guid: 6c0a6defd610abe4d8526a65b45b6709, type: 3}
 --- !u!1 &3332534099738497919
 GameObject:
   m_ObjectHideFlags: 0
@@ -1846,6 +1849,7 @@ GameObject:
   m_Component:
   - component: {fileID: 103055255625352732}
   - component: {fileID: 3325879433128394115}
+  - component: {fileID: 7197641045738825434}
   m_Layer: 0
   m_Name: Boomerang
   m_TagString: Untagged
@@ -1888,6 +1892,105 @@ MonoBehaviour:
   weaponPivot: {fileID: 6830502870105055775}
   weaponSprite: {fileID: 9155356676125761013}
   bulletName: BoomerangPrefab
+  bmrSFX: {fileID: 8300000, guid: 0c708a6801ea7e7449da3f6c004545b2, type: 3}
+  bmrAudioSource: {fileID: 7197641045738825434}
+--- !u!82 &7197641045738825434
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4231398817521613783}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &4540675694988089572
 GameObject:
   m_ObjectHideFlags: 0
@@ -2732,6 +2835,7 @@ MonoBehaviour:
   attackRange: 0.5
   damageRateTime: 1.5
   swingSpeed: 2
+  axeSFX: {fileID: 8300000, guid: 453f93ffba213624c89348e8f7392b21, type: 3}
 --- !u!1 &8254474118744750179
 GameObject:
   m_ObjectHideFlags: 0
@@ -2783,6 +2887,8 @@ MonoBehaviour:
   firePoint: {fileID: 3687818040991363217}
   weaponPivot: {fileID: 6830502870105055775}
   weaponSprite: {fileID: 8689437462336912264}
+  gunSFX: {fileID: 8300000, guid: 6608539dc76d4504d8a49665185eb2f9, type: 3}
+  gunOutAmmo: {fileID: 8300000, guid: c6d6b764eecd35e45952cea1dbc0c4ae, type: 3}
 --- !u!1 &8644529322076789783
 GameObject:
   m_ObjectHideFlags: 0
