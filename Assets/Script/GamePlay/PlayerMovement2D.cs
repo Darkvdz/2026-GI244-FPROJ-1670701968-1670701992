@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 {
+    public GameObject pointer;
+
     public float speed = 5f;
     public float jumpForce = 2f;
     public float hp = 100;
@@ -55,7 +57,13 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
             weapon.Deactivate();
         }
 
-        print(PhotonNetwork.LocalPlayer.ActorNumber);
+        if (photonView.IsMine) 
+        {
+            pointer.SetActive(true);
+        }
+
+
+        //print(PhotonNetwork.LocalPlayer.ActorNumber);
     }
 
     void Update()
