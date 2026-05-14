@@ -175,6 +175,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             yield return new WaitForSeconds(1.5f);
+            PhotonNetwork.DestroyAll();
             PhotonNetwork.LoadLevel("MainMenu");
         }
 
