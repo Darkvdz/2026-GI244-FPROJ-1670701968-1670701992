@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             ShowAllPlayerData();
         }
@@ -123,6 +123,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             AddScore(winner);
             GameNetWorkManager.instance.CheckGameEnd(winner);
+        }
+        if (alivePlayers.Count <= 0) 
+        {
+            print("error player why oeveryone dead");
         }
 
         yield return null;

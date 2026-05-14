@@ -164,6 +164,7 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
         if (hp <= 0)
         {
+            print("dead");
             Die(); 
         }
 
@@ -210,6 +211,7 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         isDead = true;
 
         //Debug.Log("Dead: " + PhotonNetwork.NickName);
+
 
         PlayerManager.instance.PlayerDied(); 
 
