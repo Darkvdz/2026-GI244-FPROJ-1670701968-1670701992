@@ -84,6 +84,7 @@ public class UIManager : MonoBehaviourPunCallbacks
         {
             Destroy(GameManager.instance.gameObject);
         }
+        
 
         PhotonNetwork.LoadLevel("MainMenu");
     }

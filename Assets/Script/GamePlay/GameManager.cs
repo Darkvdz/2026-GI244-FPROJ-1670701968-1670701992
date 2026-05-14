@@ -165,9 +165,17 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Game Winner: " + winnerName);
 
+        StartCoroutine(EndGame());
+    }
+
+    IEnumerator EndGame() 
+    {
+        ResetGameData();
+
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.LoadLevel("MainMenu"); 
+            yield return new WaitForSeconds(1.5f);
+            PhotonNetwork.LoadLevel("MainMenu");
         }
 
         Destroy(gameObject);
@@ -204,6 +212,26 @@ public class GameManager : MonoBehaviourPunCallbacks
            StartCoroutine(CheckLastPlayer());
         }
 
+        UIManager.Instance.CallUpdateUI();
+
+    }
+
+
+    public void ResetGameData()
+    {
+        foreach (var player in PhotonNetwork.PlayerList)
+        {
+            ExitGames.Client.Photon.Hashtable props =
+                new ExitGames.Client.Photon.Hashtable();
+
+            props["score"] = 0;
+            props["dead"] = false;
+
+            player.SetCustomProperties(props);
+        }
+
+        currentPlayer = 0;
+        roomPlayer = 0;
     }
 
 
