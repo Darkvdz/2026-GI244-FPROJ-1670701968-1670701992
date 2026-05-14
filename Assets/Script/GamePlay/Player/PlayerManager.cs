@@ -47,9 +47,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
         hasSpawned = true;
 
-        int index = (int)photonView.Owner.CustomProperties["slot"];
+        int index = (int)PhotonNetwork.LocalPlayer.CustomProperties["slot"];
+        print(index);
 
         Transform spawnPoint = spawnPoints[index];
+        
 
         GameObject player = PhotonNetwork.Instantiate(
             "Player/Player2D",

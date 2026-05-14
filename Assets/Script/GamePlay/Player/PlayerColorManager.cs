@@ -30,7 +30,7 @@ public class PlayerColorManager : MonoBehaviourPun
             return;
 
         int index = (int)photonView.Owner.CustomProperties["slot"];
-
+       // print(index);
         originalColor = playerColors[index];
 
         sr.color = originalColor;
