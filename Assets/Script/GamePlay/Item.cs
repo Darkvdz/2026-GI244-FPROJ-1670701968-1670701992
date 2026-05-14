@@ -39,8 +39,6 @@ public class Item : MonoBehaviourPun
                 isLocalPlayerNear = true;
                 localPlayerScript = PL2DScript;
 
-                SFXManager.instance.playSound(equipSFX);
-
                 if (uiPickup != null && !isCollectedLocal)
                 {
                     uiPickup.SetActive(true);
@@ -77,11 +75,15 @@ public class Item : MonoBehaviourPun
             isCollectedLocal = true;
             if (uiPickup != null) uiPickup.SetActive(false);
 
+            SFXManager.instance.playSound(equipSFX);
+
             localPlayerScript.PickupWeapon(weaponType);
             Debug.Log("Collected by " + PhotonNetwork.NickName);
+
             photonView.RPC("RequestDestroyItem", RpcTarget.MasterClient);
         }
     }
+
     [PunRPC]
     void RequestDestroyItem()
     {

@@ -8,7 +8,7 @@ public class Axe : Weapon
     public float damageRateTime = 1.5f;
     private float nextDamageTime = 0f;
 
-    public float swingSpeed = 3f; 
+    public float swingSpeed = 3f;
 
     public AudioClip axeSFX;
 
@@ -23,8 +23,6 @@ public class Axe : Weapon
         {
             if (Time.time >= nextDamageTime)
             {
-                SFXManager.instance.playSound(axeSFX);
-
                 AxeAttack();
             }
         }
@@ -44,7 +42,7 @@ public class Axe : Weapon
                 if (targetPV != null && !targetPV.IsMine)
                 {
                     targetPV.RPC("TakeDamage", RpcTarget.All, damage);
-                    
+
                     hitSomeone = true;
                 }
             }
@@ -52,6 +50,7 @@ public class Axe : Weapon
 
         if (hitSomeone)
         {
+            owner.photonView.RPC("RPC_PlayWeaponSound", RpcTarget.All, "Swing");
             nextDamageTime = Time.time + damageRateTime;
         }
     }
@@ -61,15 +60,7 @@ public class Axe : Weapon
         if (weaponPivot != null)
         {
             Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
-
             weaponPivot.transform.rotation = Quaternion.Lerp(weaponPivot.transform.rotation, targetRotation, Time.deltaTime * swingSpeed);
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (firePoint == null) return;
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(firePoint.position, attackRange);
     }
 }

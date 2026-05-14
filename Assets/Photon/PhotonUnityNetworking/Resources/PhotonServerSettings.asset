@@ -52,6 +52,7 @@ MonoBehaviour:
   - RPC_ApplyBuff
   - StartNextRoundCall
   - GetSlot
+  - RPC_PlayWeaponSound
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

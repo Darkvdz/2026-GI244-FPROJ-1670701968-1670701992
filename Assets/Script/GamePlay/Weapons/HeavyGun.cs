@@ -23,13 +23,13 @@ public class HeavyGun : Weapon
                 currentBullet--; 
                 nextFireTime = Time.time + fireRate;
 
-                SFXManager.instance.playSound(heavyGunSFX);
+                owner.photonView.RPC("RPC_PlayWeaponSound", RpcTarget.All, "Shoot");
 
                 PhotonNetwork.Instantiate(bulletPrefabName, firePoint.position, weaponPivot.transform.rotation);
             }
             else
             {
-                SFXManager.instance.playSound(heavyGunOutAmmo);
+                owner.photonView.RPC("RPC_PlayWeaponSound", RpcTarget.All, "Empty");
                 Debug.Log("Heavy Gun Out of Bullet");
             }
         }

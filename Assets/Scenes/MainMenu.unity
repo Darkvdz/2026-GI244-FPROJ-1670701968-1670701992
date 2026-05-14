@@ -2779,8 +2779,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.069
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2891,12 +2891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d6aee4a69a3ed84994fcb132ddc20eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SFXManager
-  sfxSource: {fileID: 0}
-  shootSFX: {fileID: 0}
-  slashSFX: {fileID: 0}
-  outOfAmmoSFX: {fileID: 0}
-  collectSFX: {fileID: 0}
-  buffSFX: {fileID: 0}
+  sfxSource: {fileID: 859554809}
 --- !u!1 &867508000
 GameObject:
   m_ObjectHideFlags: 0

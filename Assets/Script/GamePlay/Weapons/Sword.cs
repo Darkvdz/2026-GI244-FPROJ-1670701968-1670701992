@@ -5,25 +5,22 @@ public class Sword : Weapon
 {
     public float attackRange = 1.5f;
 
-    public float damageRateTime = 0.5f; 
+    public float damageRateTime = 0.5f;
     private float nextDamageTime = 0f;
 
     public AudioClip SlashSFX;
 
     public override void Use()
     {
-        Debug.Log("ATK by Sword!");   
+        Debug.Log("ATK by Sword!");
     }
 
     void Update()
     {
         if (owner != null && owner.photonView.IsMine)
         {
-           
             if (Time.time >= nextDamageTime)
             {
-                SFXManager.instance.playSound(SlashSFX);
-
                 SwordAttack();
             }
         }
@@ -31,8 +28,7 @@ public class Sword : Weapon
 
     void SwordAttack()
     {
-
-        bool hitSomeone = false; 
+        bool hitSomeone = false;
 
         Collider2D[] hitObjects = Physics2D.OverlapCircleAll(firePoint.position, attackRange);
 
@@ -44,25 +40,18 @@ public class Sword : Weapon
 
                 if (targetPV != null && !targetPV.IsMine)
                 {
-                    
                     targetPV.RPC("TakeDamage", RpcTarget.All, damage);
                     Debug.Log("Sword Auto-Hit : " + hit.name);
 
-                    hitSomeone = true; 
+                    hitSomeone = true;
                 }
             }
         }
 
         if (hitSomeone)
         {
+            owner.photonView.RPC("RPC_PlayWeaponSound", RpcTarget.All, "Swing");
             nextDamageTime = Time.time + damageRateTime;
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (firePoint == null) return;
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(firePoint.position, attackRange);
     }
 }

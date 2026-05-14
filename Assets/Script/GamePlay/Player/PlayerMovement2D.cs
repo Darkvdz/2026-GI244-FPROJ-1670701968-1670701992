@@ -274,4 +274,40 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         }
     }
 
+    [PunRPC]
+    public void RPC_PlayWeaponSound(string action)
+    {
+        if (currentWeapon == null) return;
+
+        if (currentWeapon == gun)
+        {
+            if (action == "Shoot") SFXManager.instance.playSound(gun.gunSFX);
+            else if (action == "Empty") SFXManager.instance.playSound(gun.gunOutAmmo);
+        }
+        else if (currentWeapon == heavyGun)
+        {
+            if (action == "Shoot") SFXManager.instance.playSound(heavyGun.heavyGunSFX);
+            else if (action == "Empty") SFXManager.instance.playSound(heavyGun.heavyGunOutAmmo);
+        }
+        else if (currentWeapon == sword)
+        {
+            if (action == "Swing") SFXManager.instance.playSound(sword.SlashSFX);
+        }
+        else if (currentWeapon == axe)
+        {
+            if (action == "Swing") SFXManager.instance.playSound(axe.axeSFX);
+        }
+        else if (currentWeapon == boomerang)
+        {
+            if (action == "Throw" && boomerang.bmrSFX != null)
+            {
+                boomerang.bmrAudioSource.clip = boomerang.bmrSFX;
+                boomerang.bmrAudioSource.Play();
+            }
+            else if (action == "StopThrow" && boomerang.bmrAudioSource != null)
+            {
+                boomerang.bmrAudioSource.Stop();
+            }
+        }
+    }
 }

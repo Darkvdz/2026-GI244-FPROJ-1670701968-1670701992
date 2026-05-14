@@ -23,11 +23,7 @@ public class Boomerang : Weapon
         {
             currentBullet--;
 
-            if (bmrSFX != null)
-            {
-                bmrAudioSource.clip = bmrSFX; // ใส่แผ่นเสียง
-                bmrAudioSource.Play();        // กดปุ่ม Play
-            }
+            owner.photonView.RPC("RPC_PlayWeaponSound", RpcTarget.All, "Throw");
 
             object[] data = new object[] { owner.photonView.ViewID };
 
@@ -44,9 +40,6 @@ public class Boomerang : Weapon
     {
         currentBullet = 1;
 
-        if (bmrAudioSource != null && bmrAudioSource.isPlaying)
-        {
-            bmrAudioSource.Stop();
-        }
+        owner.photonView.RPC("RPC_PlayWeaponSound", RpcTarget.All, "StopThrow");
     }
 }

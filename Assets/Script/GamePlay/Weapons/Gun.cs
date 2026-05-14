@@ -12,12 +12,15 @@ public class Gun : Weapon
         if (currentBullet > 0)
         {
             currentBullet--;
-            SFXManager.instance.playSound(gunSFX);
+
+            owner.photonView.RPC("RPC_PlayWeaponSound", RpcTarget.All, "Shoot");
+
             PhotonNetwork.Instantiate("Bullet", firePoint.position, weaponPivot.transform.rotation);
         }
         else
         {
-            SFXManager.instance.playSound(gunOutAmmo);
+            owner.photonView.RPC("RPC_PlayWeaponSound", RpcTarget.All, "Empty");
+
             Debug.Log("Out of Bullet");
         }
     }
