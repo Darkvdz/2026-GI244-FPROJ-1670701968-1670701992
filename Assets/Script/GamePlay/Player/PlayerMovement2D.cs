@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,6 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 {
     public GameObject pointer;
+    public GameObject crown;
 
     public float speed = 5f;
     public float jumpForce = 2f;
@@ -60,6 +62,13 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         if (photonView.IsMine) 
         {
             pointer.SetActive(true);
+        }
+
+        int score = (int)photonView.Owner.CustomProperties["score"];
+
+        if (score >= 3) 
+        {
+            crown.SetActive(true);
         }
 
 
