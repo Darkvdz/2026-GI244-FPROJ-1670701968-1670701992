@@ -4,16 +4,16 @@ using System.Collections;
 public class PlayerBuffManager : MonoBehaviourPun
 {
     private PlayerMovement2D playerMovement;
-    private SpriteRenderer sr;
 
     public bool isInvincible = false;
 
-    Color OriColor;
+    private PlayerColorManager colormanager;
+
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement2D>();
-        sr = GetComponent<SpriteRenderer>();
-        OriColor = sr.color;
+       
+        colormanager = GetComponent<PlayerColorManager>();
     }
 
     [PunRPC]
@@ -39,24 +39,42 @@ public class PlayerBuffManager : MonoBehaviourPun
 
         playerMovement.hp += amount;
         if (playerMovement.hp > 100) playerMovement.hp = 100;
+
+        StartCoroutine(HealColor());
         Debug.Log("Healed! HP: " + playerMovement.hp);
     }
 
     private IEnumerator Invincibility(float duration)
     {
         isInvincible = true;
-        if (sr != null)
+
+        if (colormanager != null)
         {
-            sr.color = Color.yellow;
+            colormanager.ApplyColor(Color.goldenRod); 
         }
 
         yield return new WaitForSeconds(duration);
 
         isInvincible = false;
-        if (sr != null)
+
+        if (colormanager != null)
         {
-            sr.color = OriColor;
+            colormanager.SetDefault();
         }
-        
+    }
+
+    private IEnumerator HealColor()
+    {
+        if (colormanager != null)
+        {
+            colormanager.ApplyColor(new Color(0.5f, 1f, 0.5f));
+        }
+
+        yield return new WaitForSeconds(0.55f); 
+
+        if (colormanager != null && !isInvincible)
+        {
+            colormanager.SetDefault();
+        }
     }
 }

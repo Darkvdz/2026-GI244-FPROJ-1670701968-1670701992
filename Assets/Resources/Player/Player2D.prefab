@@ -687,6 +687,7 @@ GameObject:
   - component: {fileID: 2381288118238941194}
   - component: {fileID: 6752940472041683661}
   - component: {fileID: 7499280424771633289}
+  - component: {fileID: 28062087696508394}
   m_Layer: 0
   m_Name: Player2D
   m_TagString: Player
@@ -937,6 +938,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBuffManager
   isInvincible: 0
+--- !u!114 &28062087696508394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2311058952884510591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22d8a6201a2c0224093f5ae4a795a2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerColorManager
 --- !u!1 &2569836590202125849
 GameObject:
   m_ObjectHideFlags: 0
