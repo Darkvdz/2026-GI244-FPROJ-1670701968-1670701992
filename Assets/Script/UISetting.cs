@@ -26,16 +26,16 @@ public class UISetting : MonoBehaviour
         fullscreenButton.onValueChanged.AddListener(SetFullscreen);
 
         musicSlider.value = SettingManager.instance.musicVolume;
-        musicPoint.text = musicSlider.value.ToString();
+        musicPoint.text = $"{musicSlider.value * 100:0}%";
 
         sfxSlider.value = SettingManager.instance.sfxVolume;
-        sfxPoint.text = sfxSlider.value.ToString();
+        sfxPoint.text = $"{sfxSlider.value * 100:0}%";
     }
 
     void OnMusicChanged(float value)
     {
         SettingManager.instance.musicVolume = value;
-        musicPoint.text = value.ToString();
+        musicPoint.text = $"{value * 100:0}%";
 
         SettingManager.instance.SaveSettings();
     }
@@ -43,7 +43,7 @@ public class UISetting : MonoBehaviour
     void OnSFXChanged(float value)
     {
         SettingManager.instance.sfxVolume = value;
-        sfxPoint.text = value.ToString();
+        sfxPoint.text = $"{value * 100:0}%";
 
         SettingManager.instance.SaveSettings();
     }

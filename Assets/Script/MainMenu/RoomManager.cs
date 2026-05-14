@@ -38,6 +38,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public GameObject RoomMenu;
     public GameObject Setting;
 
+    public TextMeshProUGUI warning;
+    private Coroutine WarningRoutine;
+
     private void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -151,6 +154,13 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         Debug.Log("this room id already have the room");
+
+
+        if (WarningRoutine != null)
+        {
+            StopCoroutine(WarningRoutine);
+        }
+        WarningRoutine = StartCoroutine(WarningSign(message));
     }
 
 
@@ -158,6 +168,20 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public void JoinRoom()
     {
         roomName = roomInput.text;
+
+        if (string.IsNullOrWhiteSpace(roomName))
+        {
+            Debug.Log("Please enter room id");
+
+            if (WarningRoutine != null)
+            {
+                StopCoroutine(WarningRoutine);
+            }
+
+            WarningRoutine = StartCoroutine(WarningSign("Please enter room id"));
+
+            return;
+        }
 
         joinButton.interactable = false;
         SetPlayerName();
@@ -170,7 +194,14 @@ public class RoomManager : MonoBehaviourPunCallbacks
         joinButton.interactable = true;
 
         Debug.Log("Room not found");
+
+        if (WarningRoutine != null)
+        {
+            StopCoroutine(WarningRoutine);
+        }
+        WarningRoutine = StartCoroutine(WarningSign(message));
     }
+
 
     public override void OnJoinedRoom()
     {
@@ -244,6 +275,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     IEnumerator GameBegin() 
     {
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.CurrentRoom.IsVisible = false;
+
         print("test");
         photonView.RPC("GetSlot", RpcTarget.All);
 
@@ -282,6 +316,16 @@ public class RoomManager : MonoBehaviourPunCallbacks
         return -1;
 
     }
+
+
+    IEnumerator WarningSign(string text) 
+    {
+        warning.text = text;
+        yield return new WaitForSeconds(3);
+
+        warning.text = "";
+    }
+
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {

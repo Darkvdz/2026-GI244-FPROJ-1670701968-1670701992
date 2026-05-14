@@ -226,7 +226,10 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
             CameraControll.instance.RemovePlayer(transform);
         }
 
-        UIManager.Instance.CallUpdateUI();
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.CallUpdateUI();
+        }
         gameObject.SetActive(false);
     }
 

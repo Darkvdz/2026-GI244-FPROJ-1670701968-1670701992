@@ -175,6 +175,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             yield return new WaitForSeconds(1.5f);
+
+            PhotonNetwork.CurrentRoom.IsOpen = true;
+            PhotonNetwork.CurrentRoom.IsVisible = true;
+
             PhotonNetwork.DestroyAll();
             PhotonNetwork.LoadLevel("MainMenu");
         }
@@ -213,7 +217,10 @@ public class GameManager : MonoBehaviourPunCallbacks
            StartCoroutine(CheckLastPlayer());
         }
 
-        UIManager.Instance.CallUpdateUI();
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.CallUpdateUI();
+        }
 
     }
 
