@@ -1,6 +1,7 @@
+using Photon.Pun;
 using UnityEngine;
 
-public class OutOfBound : MonoBehaviour
+public class OutOfBound : MonoBehaviourPunCallbacks
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,8 +20,9 @@ public class OutOfBound : MonoBehaviour
         if (collision.gameObject.CompareTag("Player")) 
         {
             PlayerMovement2D playerScript = collision.gameObject.GetComponent<PlayerMovement2D>();
+            PhotonView playerPV = collision.gameObject.GetComponent<PhotonView>();
 
-            if (playerScript)
+            if (playerScript && playerPV.IsMine)
             {
                 playerScript.Die();
             }
