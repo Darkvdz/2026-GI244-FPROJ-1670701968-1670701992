@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
 
         print("start check player");
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
 
         var alivePlayers = PhotonNetwork.PlayerList
            .Where(p => !IsDead(p))   

@@ -13,6 +13,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     private bool hasSpawned = false;
 
+
     private void Awake()
     {
         instance = this;
