@@ -47,7 +47,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
         hasSpawned = true;
 
-        int index = (PhotonNetwork.LocalPlayer.ActorNumber - 1) % spawnPoints.Length;
+        int index = (int)photonView.Owner.CustomProperties["slot"];
 
         Transform spawnPoint = spawnPoints[index];
 
