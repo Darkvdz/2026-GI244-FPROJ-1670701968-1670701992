@@ -1,5 +1,4 @@
 using Photon.Pun;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,14 +8,17 @@ public class ItemManager : MonoBehaviourPun
     public float minTime = 3f;
     public float maxTime = 8f;
 
-    public float waitTimeSpawn = 5f;
-    
+    private float waitTimeSpawn;
     public int maxItemSpawn = 2;
-    public int currentItem = 0;
-    public string[] itemPrefabs = { "Item/ItemGun", "Item/ItemSword", 
-        "Item/ItemHeavyGun","Item/ItemAxe","Item/ItemBoomerang" };
+
+    public string[] itemPrefabs = {
+        "Item/ItemGun", "Item/ItemSword",
+        "Item/ItemHeavyGun","Item/ItemAxe","Item/ItemBoomerang"
+    };
 
     public static ItemManager instance;
+
+    private float currentTimer = 0f;
 
     private void Awake()
     {
@@ -25,71 +27,67 @@ public class ItemManager : MonoBehaviourPun
 
     void Start()
     {
-        if (PhotonNetwork.IsMasterClient)
+        waitTimeSpawn = Random.Range(minTime, maxTime);
+    }
+
+    void Update()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        currentTimer += Time.deltaTime;
+
+        if (currentTimer >= waitTimeSpawn)
         {
+            CheckAndSpawnItem();
 
+            currentTimer = 0f;
             waitTimeSpawn = Random.Range(minTime, maxTime);
-
-            StartCoroutine(SpawnLoop());
-
-
         }
     }
 
-    IEnumerator SpawnLoop()
+    private void CheckAndSpawnItem()
     {
-        while (true)
-        {
-            if (currentItem < maxItemSpawn)
-            {
-                yield return new WaitForSeconds(waitTimeSpawn);
-                waitTimeSpawn = Random.Range(minTime, maxTime);
 
-                SpawnItem();
-            }
-            else 
-            {
-                yield return null;
-                //Debug.Log("spawn Full");
-            }
+        Item[] activeItemsInScene = FindObjectsByType<Item>(FindObjectsSortMode.None);
+
+        if (activeItemsInScene.Length < maxItemSpawn)
+        {
+            SpawnItem();
         }
     }
 
     private void SpawnItem()
     {
-        int index = Random.Range(0, spawnPoints.Count);
+       
+        List<Transform> availablePoints = new List<Transform>();
 
-        int randomItemIndex = Random.Range(0, itemPrefabs.Length);
-        string itemToSpawn = itemPrefabs[randomItemIndex];
-
-        var go = PhotonNetwork.Instantiate(
-             itemToSpawn,
-             spawnPoints[index].position,
-             Quaternion.identity
-         );
-
-        Item goItem = go.GetComponent<Item>();
-
-        if (goItem) 
+        foreach (Transform pt in spawnPoints)
         {
-            goItem.returnSpawn = spawnPoints[index];
-            spawnPoints.RemoveAt(index);
-
-            currentItem++;
-        }
-        else 
-        {
-            Debug.Log("error Item spawn not found Item script");
+            Collider2D col = Physics2D.OverlapCircle(pt.position, 0.5f);
+            if (col == null || col.GetComponent<Item>() == null)
+            {
+                availablePoints.Add(pt); 
+            }
         }
 
+        if (availablePoints.Count > 0)
+        {
+            int index = Random.Range(0, availablePoints.Count);
+            int randomItemIndex = Random.Range(0, itemPrefabs.Length);
+            string itemToSpawn = itemPrefabs[randomItemIndex];
+
+            var go = PhotonNetwork.InstantiateRoomObject(
+                 itemToSpawn,
+                 availablePoints[index].position,
+                 Quaternion.identity
+             );
+
+            Item goItem = go.GetComponent<Item>();
+            if (goItem != null)
+            {
+                goItem.returnSpawn = availablePoints[index];
+            }
+
+        }
     }
-
-    public void ReturnSpawnPointItem(Transform positionSpawn) 
-    {
-        currentItem--;
-        spawnPoints.Add(positionSpawn);
-    }
-
-
-
 }

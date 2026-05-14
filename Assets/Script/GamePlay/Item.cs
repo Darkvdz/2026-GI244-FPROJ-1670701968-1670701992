@@ -82,11 +82,6 @@ public class Item : MonoBehaviourPun
         if (isDestroyedOnServer) return;
         isDestroyedOnServer = true;
 
-        if (ItemManager.instance != null)
-        {
-            ItemManager.instance.ReturnSpawnPointItem(returnSpawn);
-        }
-
         //Hide Before Dts
         foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>())
         {
