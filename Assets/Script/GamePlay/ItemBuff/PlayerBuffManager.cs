@@ -12,7 +12,6 @@ public class PlayerBuffManager : MonoBehaviourPun
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement2D>();
-       
         colormanager = GetComponent<PlayerColorManager>();
     }
 
@@ -35,12 +34,16 @@ public class PlayerBuffManager : MonoBehaviourPun
 
     private void Heal(float amount)
     {
+        PlayerHealthBar healthBar = GetComponent<PlayerHealthBar>();
+        if (healthBar != null) healthBar.TriggerShowHealthBar();
+
+        StartCoroutine(HealColor());
+
         if (!photonView.IsMine) return;
 
         playerMovement.hp += amount;
         if (playerMovement.hp > 100) playerMovement.hp = 100;
 
-        StartCoroutine(HealColor());
         Debug.Log("Healed! HP: " + playerMovement.hp);
     }
 

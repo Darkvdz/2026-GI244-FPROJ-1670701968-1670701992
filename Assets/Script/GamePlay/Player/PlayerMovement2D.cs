@@ -138,6 +138,12 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void TakeDamage(int damage)
     {
+        PlayerHealthBar healthBar = GetComponent<PlayerHealthBar>();
+        if (healthBar != null)
+        {
+            healthBar.TriggerShowHealthBar();
+        }
+
         if (!photonView.IsMine) return;
 
         PlayerBuffManager buffManager = GetComponent<PlayerBuffManager>();
