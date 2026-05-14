@@ -29,7 +29,8 @@ public class PlayerColorManager : MonoBehaviourPun
         if (sr == null) 
             return;
 
-        int index = (photonView.Owner.ActorNumber - 1) % playerColors.Length;
+        int index = (int)photonView.Owner.CustomProperties["slot"];
+
         originalColor = playerColors[index];
 
         sr.color = originalColor;

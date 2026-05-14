@@ -57,6 +57,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         MusicManager.instance.RunGameScene();
+
+        AddProperties();
     }
 
     private void Update()
@@ -70,6 +72,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void AddProperties() 
     {
+
         ExitGames.Client.Photon.Hashtable props = new ExitGames.Client.Photon.Hashtable();
         props["score"] = 0;
         props["dead"] = false;

@@ -1,6 +1,7 @@
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
@@ -52,7 +53,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
             Debug.Log("Game Starting...");
 
-            PhotonNetwork.LoadLevel("GameScene");
+            StartCoroutine(GameBegin());
+            
         });
 
         quitButton.onClick.AddListener(() =>
@@ -237,6 +239,50 @@ public class RoomManager : MonoBehaviourPunCallbacks
         playerNumber = sortedPlayers.Count;
 
     }
+
+
+
+    IEnumerator GameBegin() 
+    {
+        print("test");
+        photonView.RPC("GetSlot", RpcTarget.All);
+
+        yield return new WaitForSeconds(1f);
+        PhotonNetwork.LoadLevel("GameScene");
+    }
+
+    [PunRPC]
+    private void GetSlot()
+    {
+        var players = PhotonNetwork.PlayerList
+             .OrderBy(p => p.ActorNumber)
+             .ToArray();
+
+        int slot = GetAvailableSlot(players);
+
+        ExitGames.Client.Photon.Hashtable props = new ExitGames.Client.Photon.Hashtable();
+
+        props["slot"] = slot;
+
+        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+    }
+
+    private int GetAvailableSlot(Player[] players) 
+    {
+        for (int i = 0; i < players.Length; i++) 
+        {
+            if (players[i].NickName == PhotonNetwork.NickName) 
+            {
+                print("your slot is " + (i));
+                return i;
+            }
+        }
+
+        print("error on get slot before game");
+        return -1;
+
+    }
+
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         UpdatePlayerList();

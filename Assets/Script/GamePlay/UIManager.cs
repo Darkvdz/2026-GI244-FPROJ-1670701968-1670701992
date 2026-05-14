@@ -115,7 +115,7 @@ public class UIManager : MonoBehaviourPunCallbacks
         StartCoroutine(UpdateUI());
     }
 
-    IEnumerator UpdateUI()
+    /*IEnumerator UpdateUI()
     {
         yield return new WaitForSeconds(1f);
 
@@ -141,8 +141,39 @@ public class UIManager : MonoBehaviourPunCallbacks
 
             SetPlayerUI(i, name, score, dead);
         }
-    }
+    }*/
 
+    IEnumerator UpdateUI()
+    {
+        yield return new WaitForSeconds(1f);
+
+        var players = PhotonNetwork.PlayerList
+            .OrderBy(p => p.ActorNumber)
+            .ToArray();
+
+        ResetAll();
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Player p = players[i];
+
+            int slot = p.CustomProperties.ContainsKey("slot")
+                ? (int)p.CustomProperties["slot"]
+                : -1;
+
+            string name = p.NickName;
+
+            int score = p.CustomProperties.ContainsKey("score")
+                ? (int)p.CustomProperties["score"]
+                : 0;
+
+            bool dead = p.CustomProperties.ContainsKey("dead")
+                ? (bool)p.CustomProperties["dead"]
+                : false;
+
+            SetPlayerUI(slot, name, score, dead);
+        }
+    }
     public void SetPlayerUI(int index, string name, int scoreValue, bool dead)
     {
         switch (index)
