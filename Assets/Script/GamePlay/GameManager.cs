@@ -54,6 +54,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     }
 
+    private void Start()
+    {
+        MusicManager.instance.RunGameScene();
+    }
+
     private void Update()
     {
         if (Input.GetKey(KeyCode.V))

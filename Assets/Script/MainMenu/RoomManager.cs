@@ -79,6 +79,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        MusicManager.instance.RunMainScene();
+
         if (PhotonNetwork.IsConnected)
         {
             if (PhotonNetwork.InRoom)

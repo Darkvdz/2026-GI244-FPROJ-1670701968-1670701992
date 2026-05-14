@@ -4,6 +4,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Linq;
 using System.Collections;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviourPunCallbacks
 {
@@ -30,18 +31,83 @@ public class UIManager : MonoBehaviourPunCallbacks
     public GameObject redDetails;
     public TextMeshProUGUI redNon;
 
+    public Button resumeButton;
+    public Button settingButton;
+    public Button leaveButton;
+
+    public Button closeButton;
+
+    public GameObject meneUI;
+    public GameObject settingUI;
+
+
+
     private string deathText = "Dead";
 
 
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
+
+        resumeButton.onClick.AddListener(() =>
+        {
+            meneUI.SetActive(false);
+        });
+
+        settingButton.onClick.AddListener(() =>
+        {
+            settingUI.SetActive(true);
+        });
+
+        leaveButton.onClick.AddListener(() =>
+        {
+            meneUI.SetActive(false);
+            PhotonNetwork.LeaveRoom();
+        });
+
+        closeButton.onClick.AddListener(() =>
+        {
+            settingUI.SetActive(false);
+        });
+
+    }
+
+    public override void OnLeftRoom()
+    {
+        if (GameManager.instance != null)
+        {
+            Destroy(GameManager.instance.gameObject);
+        }
+
+        PhotonNetwork.LoadLevel("MainMenu");
     }
 
     private void Start()
     {
         print("update UI start");
         StartCoroutine(UpdateUI());
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) 
+        {
+            if (settingUI.activeSelf)
+            {
+                settingUI.SetActive(false);
+                meneUI.SetActive(false);
+            }
+            else
+            {
+                meneUI.SetActive(!meneUI.activeSelf);
+            }
+        }
     }
 
     public void CallUpdateUI() 
