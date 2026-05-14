@@ -247,7 +247,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         print("test");
         photonView.RPC("GetSlot", RpcTarget.All);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         PhotonNetwork.LoadLevel("GameScene");
     }
 
