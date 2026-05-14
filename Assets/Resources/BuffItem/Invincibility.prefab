@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9153727295558246473}
   - component: {fileID: 4275431552171326464}
   - component: {fileID: 8083184869185507630}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Invincibility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8103859387408863872}
   - component: {fileID: 1955431772108013992}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Isometric Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}

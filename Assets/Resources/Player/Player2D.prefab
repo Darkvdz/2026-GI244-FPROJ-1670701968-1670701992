@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7990191327303825694}
   - component: {fileID: 471331135018241783}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Crow (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2809746428508701289}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AxePoint
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
@@ -132,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3642849195502048352}
   - component: {fileID: 1335742684274001691}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HeavyGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 406468647343261761}
   - component: {fileID: 6650851478493217644}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AxeBlade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3666252890751883049}
   - component: {fileID: 5993607008564046107}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HeavyGunBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +374,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3687818040991363217}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -406,7 +406,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2169005210462644132}
   - component: {fileID: 807246478094133236}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gunpath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -498,7 +498,7 @@ GameObject:
   - component: {fileID: 8827030043876440850}
   - component: {fileID: 1956722355460035332}
   - component: {fileID: 8966793007513958924}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -572,7 +572,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7064402627473178301}
   - component: {fileID: 1702091189300376973}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SwordSpite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -666,7 +666,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1906742272617164706}
   - component: {fileID: 3963418703434792369}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Crow (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -757,7 +757,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7264367741520743419}
   - component: {fileID: 3906098729079942655}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gunpath (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -848,7 +848,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4034329451417511188}
   - component: {fileID: 1039346264113566807}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pointer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -948,7 +948,7 @@ GameObject:
   - component: {fileID: 7499280424771633289}
   - component: {fileID: 28062087696508394}
   - component: {fileID: 6520045959012420991}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player2D
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1152,7 +1152,7 @@ MonoBehaviour:
   pointer: {fileID: 2308540449303027984}
   crown: {fileID: 8435210400296328561}
   speed: 5
-  jumpForce: 5
+  jumpForce: 6
   hp: 100
   moveAction:
     m_Name: Move
@@ -1188,6 +1188,7 @@ MonoBehaviour:
   axe: {fileID: 5549241019665726787}
   boomerang: {fileID: 3325879433128394115}
   currentWeapon: {fileID: 0}
+  maxJumps: 2
 --- !u!114 &7499280424771633289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1239,7 +1240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 614988467318682364}
   - component: {fileID: 4836465967634585312}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Topblade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1330,7 +1331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1737503515996776492}
   - component: {fileID: 8303727056884986950}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gunpath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1421,7 +1422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7013572021720769148}
   - component: {fileID: 1333355757881692648}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Triangle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1512,7 +1513,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8116936365363122127}
   - component: {fileID: 6588929133895509924}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1566,7 +1567,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5771440071690085562}
   - component: {fileID: 7005295903745931568}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gunpath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1657,7 +1658,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9074023961208787061}
   - component: {fileID: 1503764652878555670}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HeavyGunPath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1748,7 +1749,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8503038552279433136}
   - component: {fileID: 7268171523261994215}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HandleAxe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1840,7 +1841,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9192080643785349094}
   - component: {fileID: 9165949374816734868}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HeavyGunPath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1933,13 +1934,13 @@ GameObject:
   - component: {fileID: 2761151914278791520}
   - component: {fileID: 2307290988161602767}
   - component: {fileID: 8360417867405667592}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: HealthBarCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8945893306575604392
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2034,7 +2035,7 @@ GameObject:
   - component: {fileID: 103055255625352732}
   - component: {fileID: 3325879433128394115}
   - component: {fileID: 7197641045738825434}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Boomerang
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2091,7 +2092,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.242
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2184,7 +2185,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8206040025884251308}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GunElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2222,13 +2223,13 @@ GameObject:
   m_Component:
   - component: {fileID: 8266392546889605131}
   - component: {fileID: 2376866307433676485}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8266392546889605131
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2311,7 +2312,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4798703658216979781}
   - component: {fileID: 3555283764904597709}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HeavyGunPath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2402,7 +2403,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5509121010161450564}
   - component: {fileID: 5080287269720322005}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Crow  (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2496,7 +2497,7 @@ GameObject:
   - component: {fileID: 7406909031853936543}
   - component: {fileID: 7576360012952466718}
   - component: {fileID: 7925271858610218836}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2570,7 +2571,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8652347351156794098}
   - component: {fileID: 5832524146888960083}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2660,7 +2661,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5015066800722974986}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2696,7 +2697,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8924334837090425924}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SwordPoint
   m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
@@ -2727,7 +2728,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6194577094014550116}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
@@ -2758,7 +2759,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6533268034871848498}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2795,7 +2796,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3588099109603830524}
   - component: {fileID: 699566992828684920}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2886,7 +2887,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4915548421902505788}
   - component: {fileID: 8385276145463815609}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Crow (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2977,7 +2978,7 @@ GameObject:
   m_Component:
   - component: {fileID: 162938036562215369}
   - component: {fileID: 6894099291779919055}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HeavyGunPath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3068,7 +3069,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3842223374863407762}
   - component: {fileID: 938234983073757570}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gunpath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3159,7 +3160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7836420505211802129}
   - component: {fileID: 5549241019665726787}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3214,7 +3215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5192478157242557215}
   - component: {fileID: 5613514229215997859}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Crow (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3305,7 +3306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5467592578427235273}
   - component: {fileID: 7642818413419309154}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3358,7 +3359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7694328425198567371}
   - component: {fileID: 3691277648646107701}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 'Crown '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3451,7 +3452,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 37802155575217608}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -3483,7 +3484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1536686258154852621}
   - component: {fileID: 6086266851801955849}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gunbody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3576,7 +3577,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2887116572020185892}
   - component: {fileID: 7285001764750981826}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Blade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3666,7 +3667,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2655590633957501563}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BommerangSp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3701,7 +3702,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1468060272991968959}
   - component: {fileID: 2743298696725617898}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gunpath
   m_TagString: Untagged
   m_Icon: {fileID: 0}

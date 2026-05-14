@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 416749392388251091}
   - component: {fileID: 475202504265896525}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 1230203108825329970}
   - component: {fileID: 3739928184558386195}
   - component: {fileID: 203732566714085962}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5926208380617754597}
   - component: {fileID: 3110137997115198428}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}

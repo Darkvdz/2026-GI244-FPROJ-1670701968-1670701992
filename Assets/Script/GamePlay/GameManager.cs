@@ -200,7 +200,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public string GetRandomScene()
     {
-        var stageRandom = false;
+        //var stageRandom = false;
 
         var maps = GetAvailableMaps();
         print(maps);

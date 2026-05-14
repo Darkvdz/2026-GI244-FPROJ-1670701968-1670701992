@@ -11,7 +11,7 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
     public GameObject crown;
 
     public float speed = 5f;
-    public float jumpForce = 2f;
+    public float jumpForce = 3f;
     public float hp = 100;
     private Vector3 networkPosition;
 
@@ -34,6 +34,9 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
     private bool isDead = false;
 
     private Rigidbody2D rb;
+
+    public int maxJumps = 2;      
+    private int jumpCount = 0;
 
     private void Awake()
     {
@@ -64,11 +67,19 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
             pointer.SetActive(true);
         }
 
-        int score = (int)photonView.Owner.CustomProperties["score"];
+        int score = 0;
 
-        if (score >= 3) 
+        if (photonView.Owner.CustomProperties.ContainsKey("score"))
         {
-            crown.SetActive(true);
+            score = (int)photonView.Owner.CustomProperties["score"];
+        }
+
+        if (score >= 3)
+        {
+            if (crown != null)
+            {
+                crown.SetActive(true);
+            }
         }
 
 
@@ -107,9 +118,11 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         transform.Translate(Vector2.right * speed * horizontalInput * Time.deltaTime);
 
         //Jump
-        if (jumpAction.WasPressedThisFrame())
+        if (jumpAction.WasPressedThisFrame() && jumpCount < maxJumps)
         {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
             rb.AddForce(jumpForce * Vector2.up, ForceMode2D.Impulse);
+            jumpCount++;
         }
 
         //Attack 
@@ -214,6 +227,19 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!photonView.IsMine) return;
+
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            if (collision.contacts.Length > 0 && collision.contacts[0].normal.y > 0.5f)
+            {
+                jumpCount = 0; 
+            }
+        }
+    }
+
     public void Die()
     {
         if (isDead) return;
@@ -290,7 +316,7 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
 
         if (currentWeapon == gun)
         {
-            if (action == "Shoot") SFXManager.instance.playSound(gun.gunSFX);
+            if (action == "Shoot") SFXManager.instance.playSound(gun.gunSFX, 0.3f);
             else if (action == "Empty") SFXManager.instance.playSound(gun.gunOutAmmo);
         }
         else if (currentWeapon == heavyGun)
@@ -304,7 +330,7 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
         }
         else if (currentWeapon == axe)
         {
-            if (action == "Swing") SFXManager.instance.playSound(axe.axeSFX);
+            if (action == "Swing") SFXManager.instance.playSound(axe.axeSFX, 0.4f);
         }
         else if (currentWeapon == boomerang)
         {

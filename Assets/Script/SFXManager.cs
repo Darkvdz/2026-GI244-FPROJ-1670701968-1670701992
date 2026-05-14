@@ -20,9 +20,12 @@ public class SFXManager : MonoBehaviour
         sfxSource = GetComponent<AudioSource>();
     }
 
-    public void playSound(AudioClip clip) 
+    public void playSound(AudioClip clip, float volumeMultiplier = 1f)
     {
-        sfxSource.PlayOneShot(clip);
+        if (clip != null)
+        {
+            sfxSource.PlayOneShot(clip, volumeMultiplier);
+        }
     }
 
 
