@@ -28,6 +28,12 @@ public class GameNetWorkManager : MonoBehaviourPunCallbacks
 
         print("Score " + score);
 
+        if (PhotonNetwork.PlayerList.Length <= 1)
+        {
+            photonView.RPC("EndGame", RpcTarget.All, player.NickName);
+            return;
+        }
+
         if (score >= 3)
         {
             photonView.RPC("EndGame", RpcTarget.All, player.NickName);
