@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   speed: 10
-  damage: 20
+  damage: 35
   destroyTime: 3
 --- !u!1 &6349197251200161121
 GameObject:

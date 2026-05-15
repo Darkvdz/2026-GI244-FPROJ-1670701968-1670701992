@@ -192,7 +192,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         string currentScene = SceneManager.GetActiveScene().name;
 
-        string[] allMaps = { "GameScene", "GameScene_2" };
+        string[] allMaps = { "GameScene", "GameScene_2", "GameScene_3", "GameScene_4" , "GameScene_5" };
 
         return allMaps.Where(scene => scene != currentScene).ToArray();
     }
