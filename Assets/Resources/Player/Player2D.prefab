@@ -1152,7 +1152,7 @@ MonoBehaviour:
   pointer: {fileID: 2308540449303027984}
   crown: {fileID: 8435210400296328561}
   speed: 5
-  jumpForce: 6
+  jumpForce: 7
   hp: 100
   moveAction:
     m_Name: Move

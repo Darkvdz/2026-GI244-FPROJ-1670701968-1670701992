@@ -10,7 +10,7 @@ public class PlayerMovement2D : MonoBehaviourPun, IPunObservable
     public GameObject crown;
 
     public float speed = 5f;
-    public float jumpForce = 3f;
+    public float jumpForce = 4f;
     public float hp = 100;
     private Vector3 networkPosition;
 
